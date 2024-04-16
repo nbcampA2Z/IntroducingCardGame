@@ -95,8 +95,8 @@ public class GameManager : MonoBehaviour
             CountTry(); // 시도횟수 1 증가
             firstCard.CloseCard();
             secondCard.CloseCard();
-            firstCard.ColorChange();
-            secondCard.ColorChange();
+            firstCard.ColorChange(); //닫힌 후 색 변경
+            secondCard.ColorChange(); //닫힌 후 색 변경2
             time += 1f; // 실패시 시간추가 카운트다운 일시 마이너스로 바꿔주면됨
         }
         // 초기화
