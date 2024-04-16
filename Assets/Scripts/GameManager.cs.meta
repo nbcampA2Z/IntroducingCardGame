@@ -7,8 +7,13 @@ MonoImporter:
   - firstCard: {instanceID: 0}
   - secondCard: {instanceID: 0}
   - timeTxt: {instanceID: 0}
+  - nameTxt: {instanceID: 0}
   - endTxt: {instanceID: 0}
   - clip: {instanceID: 0}
+  - notMatched: {instanceID: 0}
+  - Victory: {instanceID: 0}
+  - timeAnim: {instanceID: 0}
+  - flapcntTxt: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

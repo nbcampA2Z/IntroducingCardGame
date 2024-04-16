@@ -14,8 +14,20 @@ public class GameManager : MonoBehaviour
     public GameObject endTxt;   // 게임종료 문구
     AudioSource audioSource;
     public AudioClip clip;  // 성공 시 출력될 소리
+    public AudioClip notMatched; // 실패 시 출력될 소리
+    public AudioClip Victory; // 카드 다 맞추면 출력될 소리
 
+
+<<<<<<< Updated upstream
     float time = 0.0f;      // 남은 시간
+=======
+    public Animator timeAnim; // 시간이 촉박할 시 애니메이션
+    bool playTimeAnim = false; // 애니메이션 동작 불리언 변수로 체크
+    float timeBomb = 5.0f; // 애니메이션 시작 시간
+    public float time = 10.0f;      // 남은 시간 임의로 설정 - 30초 정도면 적당???   
+                                    // AudioManger에서 접근해야해서 public으로 고쳤어요
+    
+>>>>>>> Stashed changes
     public int cardCount = 0;   // 보드에 남은 카드 수
 
     public int flapCnt;     // 시도 횟수(카드를 오픈한 횟수)
@@ -84,6 +96,8 @@ public class GameManager : MonoBehaviour
             // 마지막 카드일 경우 게임 종료
             if (cardCount == 0)
             {
+                // 남은카드 0장(승리)시 오디오 출력
+                audioSource.PlayOneShot(Victory);
                 Time.timeScale = 0.0f;
                 endTxt.SetActive(true);
             }
@@ -91,11 +105,13 @@ public class GameManager : MonoBehaviour
         // 불일치할 경우(실패)
         else
         {
+            //틀렸을때 땡 소리 출력
+            audioSource.PlayOneShot(notMatched);
             ShowName(false); // "실패" 문구 출력
             CountTry(); // 시도횟수 1 증가
             firstCard.CloseCard();
             secondCard.CloseCard();
-            time += 1f; // 실패시 시간추가 카운트다운 일시 마이너스로 바꿔주면됨
+            time -= 1f; // 실패시 시간추가 카운트다운 일시 마이너스로 바꿔주면됨
         }
         // 초기화
         firstCard = null;
