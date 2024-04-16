@@ -9,17 +9,14 @@ public class GameManager : MonoBehaviour
 
     public Card firstCard;
     public Card secondCard;
-
     public Text timeTxt;
-    float time = 0.0f;
-
+    public Text nameTxt;
     public GameObject endTxt;
-    public int cardCount = 0;
-
     AudioSource audioSource;
     public AudioClip clip;
 
-    public Text nameTxt;
+    float time = 0.0f;
+    public int cardCount = 0;
 
     public Text flapcntTxt; // 카드를 뒤집기위한 텍스트 공간
     public int flapCnt; // 카드 두장을 뒤집은 횟수
@@ -33,31 +30,32 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         Time.timeScale = 1.0f;
         audioSource = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         time += Time.deltaTime;
         timeTxt.text = time.ToString("N2");
         
+        // 30초 경과시 게임 종료
         if(time >= 30.0f)
         {
             Time.timeScale = 0.0f;
             endTxt.SetActive(true);
         }
+
+        // 첫 카드 오픈 후 5초 경과 시 다시 세트
         if (firstCard != null)
         {
             timeOut -= Time.deltaTime;
             if (timeOut <= 0f)
             {
-                firstCard.CloseCardInvoke();//첫번째 카드 다시 뒤집기
-                CountTry();// 시도횟수세기
+                firstCard.CloseCardInvoke();    // 첫 카드 다시 세트
+                CountTry();                     // 시도 횟수 카운트
                 firstCard = null;
             }
         }
@@ -65,8 +63,12 @@ public class GameManager : MonoBehaviour
         {
             timeOut = 5f;
         }
-        Debug.Log(timeOut);// 카운트다운 확인용
+
+        // Debug.Log(timeOut);
     }
+
+    /* */
+
     public void Matched()
     {
         if(firstCard.idx == secondCard.idx)
@@ -96,6 +98,12 @@ public class GameManager : MonoBehaviour
         secondCard = null;
     }
 
+    /*
+     * 카드를 뒤집었을 때 성공일 경우 이름, 실패일 경우 '실패'를 NameTxt에 띄워주는 함수
+     * 카드 성공 여부를 Boolean 변수 isAnswer에 인자로 받음 
+     * isAnswer가 true일 경우 첫번째 카드의 이름을 출력
+     * isAnswer가 false일 경우 string "실패"를 출력
+    */
     public void ShowName(bool isAnswer)
     {
         if (isAnswer)
@@ -108,6 +116,7 @@ public class GameManager : MonoBehaviour
         }
         nameTxt.gameObject.SetActive(true);
     }
+
     public void CountTry() // 시도횟수 세는함수
     {
         flapCnt += 1;
