@@ -650,8 +650,8 @@ MonoBehaviour:
   endTxt: {fileID: 1809097141}
   clip: {fileID: 8300000, guid: 2960b86cffbf215489ff26b7103333f3, type: 3}
   cardCount: 0
-  flapcntTxt: {fileID: 315645832}
   flapCnt: 0
+  flapcntTxt: {fileID: 315645832}
   timeOut: 0
 --- !u!4 &1092420321
 Transform:
