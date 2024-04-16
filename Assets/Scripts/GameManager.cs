@@ -128,6 +128,8 @@ private void Awake()
             firstCard.CloseCard();
             secondCard.CloseCard();
             time -= 1f; // 실패시 시간추가 카운트다운 일시 마이너스로 바꿔주면됨
+
+            Instantiate(reductionTime, canvas.transform); // 1초 감소 프리팹 생성, 부모 위치 기준으로
         }
         // 초기화
         firstCard = null;
