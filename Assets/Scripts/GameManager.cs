@@ -15,7 +15,11 @@ public class GameManager : MonoBehaviour
     AudioSource audioSource;
     public AudioClip clip;  // 성공 시 출력될 소리
 
-    float time = 0.0f;      // 남은 시간
+    public Animator timeAnim; // 시간이 촉박할 시 애니메이션
+    bool playTimeAnim = false; // 애니메이션 동작 불리언 변수로 체크
+    float timeBomb = 5.0f; // 애니메이션 시작 시간
+    float time = 10.0f;      // 남은 시간 임의로 설정 - 30초 정도면 적당???
+    
     public int cardCount = 0;   // 보드에 남은 카드 수
 
     public int flapCnt;     // 시도 횟수(카드를 오픈한 횟수)
@@ -38,12 +42,20 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        time += Time.deltaTime;
+        time -= Time.deltaTime; // 남은 시간 감소
         timeTxt.text = time.ToString("N2");
-        
-        // 30초 경과시 게임 종료
-        if(time >= 30.0f)
+
+        // 시간이 설정 시간 이하이면 애니메이션 동작  // playTimeAnim 을 체크하는 이유: 업데이트문이므로 반복적으로 실행 방지
+        if (time <= timeBomb && playTimeAnim == false)
         {
+            playTimeAnim = true; // true 로 바꿔줌으로써 반복 실행 방지
+            timeAnim.SetBool("startBomb", true); // 애니메이션 실행
+        }
+
+        // 0초가 되면 게임 종료
+        if (time <= 0.0f)
+        {
+            time = 0.0f; // 오차 제거
             Time.timeScale = 0.0f;
             endTxt.SetActive(true);
         }
