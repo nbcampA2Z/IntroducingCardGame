@@ -16,7 +16,12 @@ public class GameManager : MonoBehaviour
     AudioSource audioSource;
     public AudioClip clip;  // 성공 시 출력될 소리
 
-    float time = 30.0f;      // 남은 시간
+    public Animator timeAnim; // 시간이 촉박할 시 애니메이션
+    bool playTimeAnim = false; // 애니메이션 동작 불리언 변수로 체크
+    public float timeBomb = 5.0f; // 애니메이션 시작 시간
+    public float time = 30.0f;      // 남은 시간 
+                                    // AudioManger에서 접근해야해서 public으로 고쳤어요
+
     public int cardCount = 0;   // 보드에 남은 카드 수
 
     public int flapCnt;     // 시도 횟수(카드를 오픈한 횟수)
@@ -25,6 +30,7 @@ public class GameManager : MonoBehaviour
 
     public Text scoreTxt; // 게임 점수
     float score;
+
     
 
 private void Awake()
@@ -96,6 +102,8 @@ private void Awake()
             // 마지막 카드일 경우 게임 종료
             if (cardCount == 0)
             {
+                // 남은카드 0장(승리)시 오디오 출력
+                
                 Time.timeScale = 0.0f;
                 endTxt.SetActive(true);
             }
