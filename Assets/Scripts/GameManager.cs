@@ -21,7 +21,8 @@ public class GameManager : MonoBehaviour
     public int flapCnt;     // 시도 횟수(카드를 오픈한 횟수)
     public Text flapcntTxt; // 시도 횟수 텍스트
     public float timeOut;   // 카드 오픈 후 시간 카운트
-
+    public Text scoreTxt; // 나오는 점수체크
+    int score;
     private void Awake()
     {
         if(Instance == null)
@@ -129,5 +130,10 @@ public class GameManager : MonoBehaviour
     {
         flapCnt += 1;
         flapcntTxt.text = flapCnt.ToString();
+    }
+    public void ShowScore()
+    {
+        score = 1;
+        scoreTxt.text = score.ToString("N2");
     }
 }
