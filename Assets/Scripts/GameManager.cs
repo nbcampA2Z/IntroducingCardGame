@@ -1,49 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    public GameObject reductionTime; // 1ì´ˆ ê°ì†Œ í”„ë¦¬íŒ¹ ë°›ì•„ì˜¤ê¸°
-    public GameObject canvas; // ìº”ë²„ìŠ¤ ìœ„ì¹˜ ë°›ê¸° ìœ„í•´
-
-    public Card firstCard;  // ì²˜ìŒ ì˜¤í”ˆí•œ ì¹´ë“œ
-    public Card secondCard; // ë‘ ë²ˆì§¸ ì˜¤í”ˆí•œ ì¹´ë“œ
-    public Text timeTxt;    // ë‚¨ì€ ì‹œê°„ í…ìŠ¤íŠ¸
-    public Text nameTxt;    // ì´ë¦„ í…ìŠ¤íŠ¸
-    public GameObject endTxt;   // ê²Œì„ì¢…ë£Œ ë¬¸êµ¬
+    public Card firstCard;  // Ã³À½ ¿ÀÇÂÇÑ Ä«µå
+    public Card secondCard; // µÎ ¹øÂ° ¿ÀÇÂÇÑ Ä«µå
+    public Text timeTxt;    // ³²Àº ½Ã°£ ÅØ½ºÆ®
+    public Text nameTxt;    // ÀÌ¸§ ÅØ½ºÆ®
+    public GameObject endTxt;   // °ÔÀÓÁ¾·á ¹®±¸
     AudioSource audioSource;
-    public AudioClip clip;  // ì„±ê³µ ì‹œ ì¶œë ¥ë  ì†Œë¦¬
-    public AudioClip notMatched; // ì‹¤íŒ¨ ì‹œ ì¶œë ¥ë  ì†Œë¦¬
-    public AudioClip Victory; // ì¹´ë“œ ë‹¤ ë§ì¶”ë©´ ì¶œë ¥ë  ì†Œë¦¬
+    public AudioClip clip;  // ¼º°ø ½Ã Ãâ·ÂµÉ ¼Ò¸®
 
-<<<<<<< HEAD
     float time = 30.0f;      // ³²Àº ½Ã°£
     public int cardCount = 0;   // º¸µå¿¡ ³²Àº Ä«µå ¼ö
 
     public int flapCnt;     // ½Ãµµ È½¼ö(Ä«µå¸¦ ¿ÀÇÂÇÑ È½¼ö)
     public Text flapcntTxt; // ½Ãµµ È½¼ö ÅØ½ºÆ®
     public float timeOut;   // Ä«µå ¿ÀÇÂ ÈÄ ½Ã°£ Ä«¿îÆ®
-    public Text scoreTxt; // ³ª¿À´Â Á¡¼öÃ¼Å©
+
+    public Text scoreTxt; // °ÔÀÓ Á¡¼ö
     float score;
-=======
-    public Animator timeAnim; // ì‹œê°„ì´ ì´‰ë°•í•  ì‹œ ì• ë‹ˆë©”ì´ì…˜
-    bool playTimeAnim = false; // ì• ë‹ˆë©”ì´ì…˜ ë™ì‘ ë¶ˆë¦¬ì–¸ ë³€ìˆ˜ë¡œ ì²´í¬
-    float timeBomb = 5.0f; // ì• ë‹ˆë©”ì´ì…˜ ì‹œì‘ ì‹œê°„
-    public float time = 30.0f;      // ë‚¨ì€ ì‹œê°„ 
-                                    // AudioMangerì—ì„œ ì ‘ê·¼í•´ì•¼í•´ì„œ publicìœ¼ë¡œ ê³ ì³¤ì–´ìš”
     
-    public int cardCount = 0;   // ë³´ë“œì— ë‚¨ì€ ì¹´ë“œ ìˆ˜
 
-    public int flapCnt;     // ì‹œë„ íšŸìˆ˜(ì¹´ë“œë¥¼ ì˜¤í”ˆí•œ íšŸìˆ˜)
-    public Text flapcntTxt; // ì‹œë„ íšŸìˆ˜ í…ìŠ¤íŠ¸
-    public float timeOut;   // ì¹´ë“œ ì˜¤í”ˆ í›„ ì‹œê°„ ì¹´ìš´íŠ¸
-
->>>>>>> 846f9b0265e47268ad690e682b9bb073c2ccac47
-    private void Awake()
+private void Awake()
     {
         if (Instance == null)
         {
@@ -59,7 +43,6 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-<<<<<<< HEAD
         time -= Time.deltaTime; // ½Ã°£ ÇÁ·¹ÀÓ ´ÜÀ§·Î Ä«¿îÆ® ´Ù¿î ÇÏ°í timeº¯¼ö¿¡ ³Ö±â
         timeTxt.text = time.ToString("N2"); // timeº¯¼ö¿¡ ³ÖÀº ½Ç¼ö¸¦ ¹®ÀÚÇüÀ¸·Î ¹Ù²ã¼­ Text¿¡´Ù ³Ö±â
         score = time - flapCnt;  // Á¡¼ö¸¦ ³ªÅ¸³»±â À§ÇØ ³²Àº ½Ã°£¿¡¼­ »ç¿ëÇÑ È½¼ö¸¦ »©ÁÖ°í scoreº¯¼ö¿¡ ³Ö¾îÁÖ±â
@@ -70,35 +53,20 @@ public class GameManager : MonoBehaviour
 
         // 30ÃÊ °æ°ú½Ã °ÔÀÓ Á¾·á
         if (time <= 0.0f)
-=======
-        time -= Time.deltaTime; // ë‚¨ì€ ì‹œê°„ ê°ì†Œ
-        timeTxt.text = time.ToString("N2");
-
-        // ì‹œê°„ì´ ì„¤ì • ì‹œê°„ ì´í•˜ì´ë©´ ì• ë‹ˆë©”ì´ì…˜ ë™ì‘  // playTimeAnim ì„ ì²´í¬í•˜ëŠ” ì´ìœ : ì—…ë°ì´íŠ¸ë¬¸ì´ë¯€ë¡œ ë°˜ë³µì ìœ¼ë¡œ ì‹¤í–‰ ë°©ì§€
-        if (time <= timeBomb && playTimeAnim == false)
->>>>>>> 846f9b0265e47268ad690e682b9bb073c2ccac47
         {
-            playTimeAnim = true; // true ë¡œ ë°”ê¿”ì¤Œìœ¼ë¡œì¨ ë°˜ë³µ ì‹¤í–‰ ë°©ì§€
-            timeAnim.SetBool("startBomb", true); // ì• ë‹ˆë©”ì´ì…˜ ì‹¤í–‰
-        }
-
-        // 0ì´ˆê°€ ë˜ë©´ ê²Œì„ ì¢…ë£Œ
-        if (time <= 0.0f)
-        {
-            time = 0.0f; // ì˜¤ì°¨ ì œê±°
             Time.timeScale = 0.0f;
             endTxt.SetActive(true);
 
         }
 
-        // ì²« ì¹´ë“œ ì˜¤í”ˆ í›„ 5ì´ˆ ê²½ê³¼ ì‹œ ë‹¤ì‹œ ì—ì–´ë†“ìŒ
+        // Ã¹ Ä«µå ¿ÀÇÂ ÈÄ 5ÃÊ °æ°ú ½Ã ´Ù½Ã ¾ş¾î³õÀ½
         if (firstCard != null)
         {
             timeOut -= Time.deltaTime;
             if (timeOut <= 0f)
             {
-                firstCard.CloseCardInvoke();    // ì²« ì¹´ë“œ ë‹¤ì‹œ ì—ì–´ë†“ìŒ
-                CountTry();                     // ì‹œë„ íšŸìˆ˜ 1 ì¦ê°€
+                firstCard.CloseCardInvoke();    // Ã¹ Ä«µå ´Ù½Ã ¾ş¾î³õÀ½
+                CountTry();                     // ½Ãµµ È½¼ö 1 Áõ°¡
                 firstCard = null;
             }
         }
@@ -110,67 +78,48 @@ public class GameManager : MonoBehaviour
 
     }
 
-    /* Matched í•¨ìˆ˜
-     * 2ì¥ì˜ ì¹´ë“œë¥¼ ì˜¤í”ˆí–ˆì„ ë•Œ ì„œë¡œ ì¼ì¹˜í•˜ëŠ”ì§€(ì„±ê³µ) ë¶ˆì¼ì¹˜í•˜ëŠ”ì§€(ì‹¤íŒ¨) íŒë³„í•¨
+    /* Matched ÇÔ¼ö
+     * 2ÀåÀÇ Ä«µå¸¦ ¿ÀÇÂÇßÀ» ¶§ ¼­·Î ÀÏÄ¡ÇÏ´ÂÁö(¼º°ø) ºÒÀÏÄ¡ÇÏ´ÂÁö(½ÇÆĞ) ÆÇº°ÇÔ
      */
     public void Matched()
     {
-<<<<<<< HEAD
         // ÀÏÄ¡ÇÒ °æ¿ì(¼º°ø)
         if (firstCard.idx == secondCard.idx)
-=======
-        // ì¼ì¹˜í•  ê²½ìš°(ì„±ê³µ)
-        if(firstCard.idx == secondCard.idx)
->>>>>>> 846f9b0265e47268ad690e682b9bb073c2ccac47
         {
-            ShowName(true); // ì´ë¦„ ì¶œë ¥
-            CountTry(); // ì‹œë„íšŸìˆ˜ 1 ì¦ê°€
+            ShowName(true); // ÀÌ¸§ Ãâ·Â
+            CountTry(); // ½ÃµµÈ½¼ö 1 Áõ°¡
             audioSource.PlayOneShot(clip);
             firstCard.DestroyCard();
             secondCard.DestroyCard();
+            score += 1f; // ¼º°ø½Ã ÇÃ·¯½º 1Á¡ÇØÁÖ±â
             cardCount -= 2;
-<<<<<<< HEAD
-            score += 1f; // Ä«µå ¸ÂÃâ¶§¸¶´Ù Á¡¼ö 1Á¡Ãß°¡
             // ¸¶Áö¸· Ä«µåÀÏ °æ¿ì °ÔÀÓ Á¾·á
-=======
-            // ë§ˆì§€ë§‰ ì¹´ë“œì¼ ê²½ìš° ê²Œì„ ì¢…ë£Œ
->>>>>>> 846f9b0265e47268ad690e682b9bb073c2ccac47
             if (cardCount == 0)
             {
-                // ë‚¨ì€ì¹´ë“œ 0ì¥(ìŠ¹ë¦¬)ì‹œ ì˜¤ë””ì˜¤ ì¶œë ¥
-                audioSource.PlayOneShot(Victory);
                 Time.timeScale = 0.0f;
                 endTxt.SetActive(true);
             }
         }
-        // ë¶ˆì¼ì¹˜í•  ê²½ìš°(ì‹¤íŒ¨)
+        // ºÒÀÏÄ¡ÇÒ °æ¿ì(½ÇÆĞ)
         else
         {
-            //í‹€ë ¸ì„ë•Œ ë•¡ ì†Œë¦¬ ì¶œë ¥
-            audioSource.PlayOneShot(notMatched);
-            ShowName(false); // "ì‹¤íŒ¨" ë¬¸êµ¬ ì¶œë ¥
-            CountTry(); // ì‹œë„íšŸìˆ˜ 1 ì¦ê°€
+            ShowName(false); // "½ÇÆĞ" ¹®±¸ Ãâ·Â
+            CountTry(); // ½ÃµµÈ½¼ö 1 Áõ°¡
             firstCard.CloseCard();
             secondCard.CloseCard();
-<<<<<<< HEAD
             time -= 1f; // ½ÇÆĞ½Ã ½Ã°£Ãß°¡ Ä«¿îÆ®´Ù¿î ÀÏ½Ã ¸¶ÀÌ³Ê½º·Î ¹Ù²ãÁÖ¸éµÊ
-=======
-            time -= 1f; // ì‹¤íŒ¨ì‹œ ì‹œê°„ì¶”ê°€, ì¹´ìš´íŠ¸ë‹¤ìš´ ì¼ì‹œ ë§ˆì´ë„ˆìŠ¤ë¡œ ë°”ê¿”ì£¼ë©´ë¨
-
-            Instantiate(reductionTime, canvas.transform); // 1ì´ˆ ê°ì†Œ í”„ë¦¬íŒ¹ ìƒì„±, ë¶€ëª¨ ìœ„ì¹˜ ê¸°ì¤€ìœ¼ë¡œ
->>>>>>> 846f9b0265e47268ad690e682b9bb073c2ccac47
         }
-        // ì´ˆê¸°í™”
+        // ÃÊ±âÈ­
         firstCard = null;
         secondCard = null;
     }
 
-    /* ShowName í•¨ìˆ˜
-     * Matched í•¨ìˆ˜ì— ì˜í•´ íŒë³„ëœ ë§¤ì¹­ ì„±ê³µ ì—¬ë¶€ê°€
-     * ì„±ê³µì¼ ê²½ìš° ì´ë¦„, ì‹¤íŒ¨ì¼ ê²½ìš° 'ì‹¤íŒ¨'ë¥¼ NameTxtì— ë„ì›Œì¤Œ
-     * ë§¤ì¹­ ì„±ê³µ ì—¬ë¶€ë¥¼ Boolean ë³€ìˆ˜ isAnswerì— ì¸ìë¡œ ë°›ìŒ 
-     * isAnswerê°€ trueì¼ ê²½ìš° ì²« ì¹´ë“œ ì´ë¦„ì„ ì¶œë ¥
-     * isAnswerê°€ falseì¼ ê²½ìš° "ì‹¤íŒ¨" ì¶œë ¥
+    /* ShowName ÇÔ¼ö
+     * Matched ÇÔ¼ö¿¡ ÀÇÇØ ÆÇº°µÈ ¸ÅÄª ¼º°ø ¿©ºÎ°¡
+     * ¼º°øÀÏ °æ¿ì ÀÌ¸§, ½ÇÆĞÀÏ °æ¿ì '½ÇÆĞ'¸¦ NameTxt¿¡ ¶ç¿öÁÜ
+     * ¸ÅÄª ¼º°ø ¿©ºÎ¸¦ Boolean º¯¼ö isAnswer¿¡ ÀÎÀÚ·Î ¹ŞÀ½ 
+     * isAnswer°¡ trueÀÏ °æ¿ì Ã¹ Ä«µå ÀÌ¸§À» Ãâ·Â
+     * isAnswer°¡ falseÀÏ °æ¿ì "½ÇÆĞ" Ãâ·Â
      */
     public void ShowName(bool isAnswer)
     {
@@ -180,13 +129,13 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            nameTxt.text = "ì‹¤íŒ¨";
+            nameTxt.text = "½ÇÆĞ";
         }
         nameTxt.gameObject.SetActive(true);
     }
 
-    /* CountTry í•¨ìˆ˜
-     * ì¹´ë“œë¥¼ ì˜¤í”ˆí–ˆì„ ë•Œ ì‹œë„ íšŸìˆ˜ë¥¼ 1 ì¦ê°€ì‹œì¼œì¤Œ
+    /* CountTry ÇÔ¼ö
+     * Ä«µå¸¦ ¿ÀÇÂÇßÀ» ¶§ ½Ãµµ È½¼ö¸¦ 1 Áõ°¡½ÃÄÑÁÜ
      */
     public void CountTry()
     {
