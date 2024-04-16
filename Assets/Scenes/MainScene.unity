@@ -157,8 +157,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 120, y: 0}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &127044016
 MonoBehaviour:
@@ -744,22 +744,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b42790e34341f4db132294845511a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reductionTime: {fileID: 2073209559192215480, guid: a5481138a9e9f704ba741b65b110a411, type: 3}
-  canvas: {fileID: 1574330934}
   firstCard: {fileID: 0}
   secondCard: {fileID: 0}
   timeTxt: {fileID: 272445093}
   nameTxt: {fileID: 1130511044}
   endTxt: {fileID: 1809097141}
   clip: {fileID: 8300000, guid: 2960b86cffbf215489ff26b7103333f3, type: 3}
-  notMatched: {fileID: 8300000, guid: 0ddd5e76011e38145aae39e343b0d098, type: 3}
-  Victory: {fileID: 8300000, guid: 1a7be2a84018c8642baf0c090e5fe58f, type: 3}
   timeAnim: {fileID: 272445095}
-  time: 10
+  timeBomb: 5
+  time: 30
   cardCount: 0
   flapCnt: 0
   flapcntTxt: {fileID: 315645832}
   timeOut: 0
+  scoreTxt: {fileID: 127044016}
 --- !u!4 &1092420321
 Transform:
   m_ObjectHideFlags: 0
