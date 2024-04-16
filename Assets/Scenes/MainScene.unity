@@ -671,7 +671,10 @@ MonoBehaviour:
   nameTxt: {fileID: 1130511044}
   endTxt: {fileID: 1809097141}
   clip: {fileID: 8300000, guid: 2960b86cffbf215489ff26b7103333f3, type: 3}
+  notMatched: {fileID: 8300000, guid: 0ddd5e76011e38145aae39e343b0d098, type: 3}
+  Victory: {fileID: 8300000, guid: 1a7be2a84018c8642baf0c090e5fe58f, type: 3}
   timeAnim: {fileID: 272445095}
+  time: 10
   cardCount: 0
   flapCnt: 0
   flapcntTxt: {fileID: 315645832}
