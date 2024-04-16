@@ -43,7 +43,6 @@ public class Card : MonoBehaviour
 
         audioSource.PlayOneShot(clip);
         anim.SetBool("isOpen", true);
-        Invoke("OpenCardInvoke", 0.57f); //카드 뒤집히는 시간 벌어주기
 
         if(GameManager.Instance.firstCard == null)
         {
@@ -56,12 +55,6 @@ public class Card : MonoBehaviour
         }
     }
     
-    void OpenCardInvoke() //카드 열여주는 매커니즘
-    {
-        front.SetActive(true);
-        back.SetActive(false);
-    }
-
     /* DestroyCard 함수
      * 해당 카드를 보드에서 제외함
      * 오픈한 두 카드가 일치할 경우 이 함수가 호출됨
