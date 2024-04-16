@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
             timeOut -= Time.deltaTime;
             if (timeOut <= 0f)
             {
-                firstCard.ClosedCardInvoke();//첫번째 카드 다시 뒤집기
+                firstCard.CloseCardInvoke();//첫번째 카드 다시 뒤집기
                 CountTry();// 시도횟수세기
                 firstCard = null;
             }
