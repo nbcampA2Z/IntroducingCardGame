@@ -21,6 +21,10 @@ public class GameManager : MonoBehaviour
 
     public Text nameTxt;
 
+    public Text flapcntTxt; // 카드를 뒤집기위한 텍스트 공간
+    public int flapCnt; // 카드 두장을 뒤집은 횟수
+    public float timeOut; // 카드를 다시 뒤집을때 사용하는 카운트다운
+
     private void Awake()
     {
         if(Instance == null)
@@ -47,6 +51,21 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 0.0f;
             endTxt.SetActive(true);
         }
+        if (firstCard != null)
+        {
+            timeOut -= Time.deltaTime;
+            if (timeOut <= 0f)
+            {
+                firstCard.ClosedCardInvoke();//첫번째 카드 다시 뒤집기
+                CountTry();// 시도횟수세기
+                firstCard = null;
+            }
+        }
+        else
+        {
+            timeOut = 5f;
+        }
+        Debug.Log(timeOut);// 카운트다운 확인용
     }
     public void Matched()
     {
@@ -56,9 +75,9 @@ public class GameManager : MonoBehaviour
             audioSource.PlayOneShot(clip);
             firstCard.DestroyCard();
             secondCard.DestroyCard();
-            
             cardCount -= 2;
-            if(cardCount == 0)
+            CountTry(); // 시도횟수 세는함수
+            if (cardCount == 0)
             {
                 Time.timeScale = 0.0f;
                 endTxt.SetActive(true);
@@ -69,6 +88,8 @@ public class GameManager : MonoBehaviour
             ShowName(false);
             firstCard.CloseCard();
             secondCard.CloseCard();
+            CountTry(); // 시도횟수 세는함수
+            time += 1f; // 실패시 시간추가 카운트다운 일시 마이너스로 바꿔주면됨
         }
 
         firstCard = null;
@@ -86,5 +107,10 @@ public class GameManager : MonoBehaviour
             nameTxt.text = "실패";
         }
         nameTxt.gameObject.SetActive(true);
+    }
+    public void CountTry() // 시도횟수 세는함수
+    {
+        flapCnt += 1;
+        flapcntTxt.text = flapCnt.ToString();
     }
 }
