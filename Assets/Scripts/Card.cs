@@ -41,8 +41,10 @@ public class Card : MonoBehaviour
 
         audioSource.PlayOneShot(clip);
         anim.SetBool("isOpen", true);
-        front.SetActive(true);
-        back.SetActive(false);
+
+        //따로 빼둔 FlipCardInvoke 함수를 invoke 함수로 지연시켜 불러옴
+
+        Invoke("FlipCardInvoke", 0.5f);
 
         if(GameManager.Instance.firstCard == null)
         {
@@ -54,6 +56,16 @@ public class Card : MonoBehaviour
             GameManager.Instance.Matched();
         }
     }
+
+    //카드의 back과 front를 켜고 끄는 기능을 invoke 시키기 위해
+    //FlipCardInvoke 함수로 따로 빼놓음
+
+    void FlipCardInvoke()
+    {
+        front.SetActive(true);
+        back.SetActive(false);
+    }
+
 
     /* DestroyCard 함수
      * 해당 카드를 보드에서 제외함

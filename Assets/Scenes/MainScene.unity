@@ -293,6 +293,7 @@ GameObject:
   - component: {fileID: 272445092}
   - component: {fileID: 272445094}
   - component: {fileID: 272445093}
+  - component: {fileID: 272445095}
   m_Layer: 5
   m_Name: TimeTxt
   m_TagString: Untagged
@@ -352,7 +353,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0.00
+  m_Text: 30.00
 --- !u!222 &272445094
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -361,6 +362,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 272445091}
   m_CullTransparentMesh: 1
+--- !u!95 &272445095
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272445091}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ea736fdf028661e4bad77a7dd5f41a27, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &277640381
 GameObject:
   m_ObjectHideFlags: 0
@@ -722,12 +744,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b42790e34341f4db132294845511a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reductionTime: {fileID: 2073209559192215480, guid: a5481138a9e9f704ba741b65b110a411, type: 3}
+  canvas: {fileID: 1574330934}
   firstCard: {fileID: 0}
   secondCard: {fileID: 0}
   timeTxt: {fileID: 272445093}
   nameTxt: {fileID: 1130511044}
   endTxt: {fileID: 1809097141}
   clip: {fileID: 8300000, guid: 2960b86cffbf215489ff26b7103333f3, type: 3}
+  notMatched: {fileID: 8300000, guid: 0ddd5e76011e38145aae39e343b0d098, type: 3}
+  Victory: {fileID: 8300000, guid: 1a7be2a84018c8642baf0c090e5fe58f, type: 3}
+  timeAnim: {fileID: 272445095}
+  time: 10
   cardCount: 0
   flapCnt: 0
   flapcntTxt: {fileID: 315645832}
