@@ -8,6 +8,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    public GameObject reductionTime; // 1초 감소 프리팹 받아오기
+    public GameObject canvas; // 캔버스 위치 받기 위해
+
+
     public Card firstCard;  // 처음 오픈한 카드
     public Card secondCard; // 두 번째 오픈한 카드
     public Text timeTxt;    // 남은 시간 텍스트
@@ -15,6 +19,8 @@ public class GameManager : MonoBehaviour
     public GameObject endTxt;   // 게임종료 문구
     AudioSource audioSource;
     public AudioClip clip;  // 성공 시 출력될 소리
+    public AudioClip notMatched; // 실패 시 출력될 소리
+    public AudioClip Victory; // 카드 다 맞추면 출력될 소리
 
     public Animator timeAnim; // 시간이 촉박할 시 애니메이션
     bool playTimeAnim = false; // 애니메이션 동작 불리언 변수로 체크
@@ -52,6 +58,11 @@ private void Awake()
         time -= Time.deltaTime; // 시간 프레임 단위로 카운트 다운 하고 time변수에 넣기
         timeTxt.text = time.ToString("N2"); // time변수에 넣은 실수를 문자형으로 바꿔서 Text에다 넣기
         score = time - flapCnt;  // 점수를 나타내기 위해 남은 시간에서 사용한 횟수를 빼주고 score변수에 넣어주기
+        if (time <= timeBomb && playTimeAnim == false)
+        {
+            playTimeAnim = true; // true 로 바꿔줌으로써 반복 실행 방지
+            timeAnim.SetBool("startBomb", true); // 애니메이션 실행
+        }
         if (score < 0.0f)
         {
             score = 0.0f;
@@ -60,9 +71,9 @@ private void Awake()
         // 30초 경과시 게임 종료
         if (time <= 0.0f)
         {
+            time = 0.0f; // 오차 제거
             Time.timeScale = 0.0f;
             endTxt.SetActive(true);
-
         }
 
         // 첫 카드 오픈 후 5초 경과 시 다시 엎어놓음
@@ -103,7 +114,7 @@ private void Awake()
             if (cardCount == 0)
             {
                 // 남은카드 0장(승리)시 오디오 출력
-                
+                audioSource.PlayOneShot(Victory);
                 Time.timeScale = 0.0f;
                 endTxt.SetActive(true);
             }
@@ -111,6 +122,7 @@ private void Awake()
         // 불일치할 경우(실패)
         else
         {
+            audioSource.PlayOneShot(notMatched);
             ShowName(false); // "실패" 문구 출력
             CountTry(); // 시도횟수 1 증가
             firstCard.CloseCard();
