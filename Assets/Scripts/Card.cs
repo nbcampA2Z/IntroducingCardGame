@@ -9,6 +9,7 @@ public class Card : MonoBehaviour
     public GameObject back;     // 카드 뒷면 (물음표)
     public Animator anim;       // 카드 애니메이터
     public SpriteRenderer frontImage;
+    public SpriteRenderer backImage; 
     AudioSource audioSource;
     public AudioClip clip;      // 카드 뒤집는 소리
     public string name;         // 이름
@@ -17,6 +18,7 @@ public class Card : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        backImage = back.GetComponent<SpriteRenderer>(); //뒤집기 후 색 변경을 위한 GetComponent
     }
 
     /* Setting 함수
@@ -88,5 +90,15 @@ public class Card : MonoBehaviour
         anim.SetBool("isOpen", false);
         front.SetActive(false);
         back.SetActive(true);
+    }
+    
+    public void ColorChange() //색 변경 함수 불러오기
+    {
+        Invoke("ColorChangeInvoke", 1.0f);
+    }
+    
+    void ColorChangeInvoke() //색 변경 함수
+    {
+        backImage.color = Color.grey;
     }
 }
