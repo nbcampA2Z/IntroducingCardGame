@@ -15,17 +15,17 @@ public class GameManager : MonoBehaviour
     AudioSource audioSource;
     public AudioClip clip;  // 성공 시 출력될 소리
 
-    float time = 0.0f;      // 남은 시간
+    float time = 30.0f;      // 남은 시간
     public int cardCount = 0;   // 보드에 남은 카드 수
 
     public int flapCnt;     // 시도 횟수(카드를 오픈한 횟수)
     public Text flapcntTxt; // 시도 횟수 텍스트
     public float timeOut;   // 카드 오픈 후 시간 카운트
     public Text scoreTxt; // 나오는 점수체크
-    int score;
+    float score;
     private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
         }
@@ -39,14 +39,20 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        time += Time.deltaTime;
-        timeTxt.text = time.ToString("N2");
-        
+        time -= Time.deltaTime; // 시간 프레임 단위로 카운트 다운 하고 time변수에 넣기
+        timeTxt.text = time.ToString("N2"); // time변수에 넣은 실수를 문자형으로 바꿔서 Text에다 넣기
+        score = time - flapCnt;  // 점수를 나타내기 위해 남은 시간에서 사용한 횟수를 빼주고 score변수에 넣어주기
+        if (score < 0.0f)
+        {
+            score = 0.0f;
+        }
+
         // 30초 경과시 게임 종료
-        if(time >= 30.0f)
+        if (time <= 0.0f)
         {
             Time.timeScale = 0.0f;
             endTxt.SetActive(true);
+
         }
 
         // 첫 카드 오픈 후 5초 경과 시 다시 엎어놓음
@@ -64,8 +70,8 @@ public class GameManager : MonoBehaviour
         {
             timeOut = 5f;
         }
+        scoreTxt.text = score.ToString("N0");// score변수에 넣은 실수를 문자형으로 바꿔서 Text에다 넣기
 
-        // Debug.Log(timeOut);
     }
 
     /* Matched 함수
@@ -74,7 +80,7 @@ public class GameManager : MonoBehaviour
     public void Matched()
     {
         // 일치할 경우(성공)
-        if(firstCard.idx == secondCard.idx)
+        if (firstCard.idx == secondCard.idx)
         {
             ShowName(true); // 이름 출력
             CountTry(); // 시도횟수 1 증가
@@ -82,6 +88,7 @@ public class GameManager : MonoBehaviour
             firstCard.DestroyCard();
             secondCard.DestroyCard();
             cardCount -= 2;
+            score += 1f; // 카드 맞출때마다 점수 1점추가
             // 마지막 카드일 경우 게임 종료
             if (cardCount == 0)
             {
@@ -96,7 +103,7 @@ public class GameManager : MonoBehaviour
             CountTry(); // 시도횟수 1 증가
             firstCard.CloseCard();
             secondCard.CloseCard();
-            time += 1f; // 실패시 시간추가 카운트다운 일시 마이너스로 바꿔주면됨
+            time -= 1f; // 실패시 시간추가 카운트다운 일시 마이너스로 바꿔주면됨
         }
         // 초기화
         firstCard = null;
@@ -131,9 +138,5 @@ public class GameManager : MonoBehaviour
         flapCnt += 1;
         flapcntTxt.text = flapCnt.ToString();
     }
-    public void ShowScore()
-    {
-        score = 1;
-        scoreTxt.text = score.ToString("N2");
-    }
+
 }
