@@ -665,6 +665,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b42790e34341f4db132294845511a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reductionTime: {fileID: 2073209559192215480, guid: a5481138a9e9f704ba741b65b110a411, type: 3}
+  canvas: {fileID: 1574330934}
   firstCard: {fileID: 0}
   secondCard: {fileID: 0}
   timeTxt: {fileID: 272445093}

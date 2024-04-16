@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    public GameObject reductionTime; // 1초 감소 프리팹 받아오기
+    public GameObject canvas; // 캔버스 위치 받기 위해
+
     public Card firstCard;  // 처음 오픈한 카드
     public Card secondCard; // 두 번째 오픈한 카드
     public Text timeTxt;    // 남은 시간 텍스트
@@ -18,7 +21,7 @@ public class GameManager : MonoBehaviour
     public Animator timeAnim; // 시간이 촉박할 시 애니메이션
     bool playTimeAnim = false; // 애니메이션 동작 불리언 변수로 체크
     float timeBomb = 5.0f; // 애니메이션 시작 시간
-    float time = 10.0f;      // 남은 시간 임의로 설정 - 30초 정도면 적당???
+    float time = 30.0f;      // 남은 시간
     
     public int cardCount = 0;   // 보드에 남은 카드 수
 
@@ -107,7 +110,9 @@ public class GameManager : MonoBehaviour
             CountTry(); // 시도횟수 1 증가
             firstCard.CloseCard();
             secondCard.CloseCard();
-            time += 1f; // 실패시 시간추가 카운트다운 일시 마이너스로 바꿔주면됨
+            time -= 1f; // 실패시 시간추가, 카운트다운 일시 마이너스로 바꿔주면됨
+
+            Instantiate(reductionTime, canvas.transform); // 1초 감소 프리팹 생성, 부모 위치 기준으로
         }
         // 초기화
         firstCard = null;
