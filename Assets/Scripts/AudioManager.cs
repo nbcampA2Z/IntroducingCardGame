@@ -37,7 +37,7 @@ public class AudioManager : MonoBehaviour
     {
         //남은 시간이 N초 미만일때 , 피치 플래그 함수가 false일대 AudioSorce에서 피치값을 1.3배로 조절 (지금은 10초로 설정)
         //Updatd 문이라 프레임마다 1.3배가 되지 않으려면 PitchFlag 체크로 한번만 동작해야 함
-        if (GameManager.Instance.time < 10.0f && PitchFlag == false)
+        if (GameManager.Instance.time <= GameManager.Instance.timeBomb && PitchFlag == false)
         {
             GetComponent<AudioSource>().pitch = audioSource.pitch * 1.3f;
             PitchFlag = true;
