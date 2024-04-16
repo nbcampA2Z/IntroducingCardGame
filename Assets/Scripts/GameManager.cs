@@ -7,20 +7,20 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    public Card firstCard;
-    public Card secondCard;
-    public Text timeTxt;
-    public Text nameTxt;
-    public GameObject endTxt;
+    public Card firstCard;  // 처음 오픈한 카드
+    public Card secondCard; // 두 번째 오픈한 카드
+    public Text timeTxt;    // 남은 시간 텍스트
+    public Text nameTxt;    // 이름 텍스트
+    public GameObject endTxt;   // 게임종료 문구
     AudioSource audioSource;
-    public AudioClip clip;
+    public AudioClip clip;  // 성공 시 출력될 소리
 
-    float time = 0.0f;
-    public int cardCount = 0;
+    float time = 0.0f;      // 남은 시간
+    public int cardCount = 0;   // 보드에 남은 카드 수
 
-    public Text flapcntTxt; // 카드를 뒤집기위한 텍스트 공간
-    public int flapCnt; // 카드 두장을 뒤집은 횟수
-    public float timeOut; // 카드를 다시 뒤집을때 사용하는 카운트다운
+    public int flapCnt;     // 시도 횟수(카드를 오픈한 횟수)
+    public Text flapcntTxt; // 시도 횟수 텍스트
+    public float timeOut;   // 카드 오픈 후 시간 카운트
 
     private void Awake()
     {
@@ -48,14 +48,14 @@ public class GameManager : MonoBehaviour
             endTxt.SetActive(true);
         }
 
-        // 첫 카드 오픈 후 5초 경과 시 다시 세트
+        // 첫 카드 오픈 후 5초 경과 시 다시 엎어놓음
         if (firstCard != null)
         {
             timeOut -= Time.deltaTime;
             if (timeOut <= 0f)
             {
-                firstCard.CloseCardInvoke();    // 첫 카드 다시 세트
-                CountTry();                     // 시도 횟수 카운트
+                firstCard.CloseCardInvoke();    // 첫 카드 다시 엎어놓음
+                CountTry();                     // 시도 횟수 1 증가
                 firstCard = null;
             }
         }
@@ -67,43 +67,48 @@ public class GameManager : MonoBehaviour
         // Debug.Log(timeOut);
     }
 
-    /* */
-
+    /* Matched 함수
+     * 2장의 카드를 오픈했을 때 서로 일치하는지(성공) 불일치하는지(실패) 판별함
+     */
     public void Matched()
     {
+        // 일치할 경우(성공)
         if(firstCard.idx == secondCard.idx)
         {
-            ShowName(true);
+            ShowName(true); // 이름 출력
+            CountTry(); // 시도횟수 1 증가
             audioSource.PlayOneShot(clip);
             firstCard.DestroyCard();
             secondCard.DestroyCard();
             cardCount -= 2;
-            CountTry(); // 시도횟수 세는함수
+            // 마지막 카드일 경우 게임 종료
             if (cardCount == 0)
             {
                 Time.timeScale = 0.0f;
                 endTxt.SetActive(true);
             }
         }
+        // 불일치할 경우(실패)
         else
         {
-            ShowName(false);
+            ShowName(false); // "실패" 문구 출력
+            CountTry(); // 시도횟수 1 증가
             firstCard.CloseCard();
             secondCard.CloseCard();
-            CountTry(); // 시도횟수 세는함수
             time += 1f; // 실패시 시간추가 카운트다운 일시 마이너스로 바꿔주면됨
         }
-
+        // 초기화
         firstCard = null;
         secondCard = null;
     }
 
-    /*
-     * 카드를 뒤집었을 때 성공일 경우 이름, 실패일 경우 '실패'를 NameTxt에 띄워주는 함수
-     * 카드 성공 여부를 Boolean 변수 isAnswer에 인자로 받음 
-     * isAnswer가 true일 경우 첫번째 카드의 이름을 출력
-     * isAnswer가 false일 경우 string "실패"를 출력
-    */
+    /* ShowName 함수
+     * Matched 함수에 의해 판별된 매칭 성공 여부가
+     * 성공일 경우 이름, 실패일 경우 '실패'를 NameTxt에 띄워줌
+     * 매칭 성공 여부를 Boolean 변수 isAnswer에 인자로 받음 
+     * isAnswer가 true일 경우 첫 카드 이름을 출력
+     * isAnswer가 false일 경우 "실패" 출력
+     */
     public void ShowName(bool isAnswer)
     {
         if (isAnswer)
@@ -117,7 +122,10 @@ public class GameManager : MonoBehaviour
         nameTxt.gameObject.SetActive(true);
     }
 
-    public void CountTry() // 시도횟수 세는함수
+    /* CountTry 함수
+     * 카드를 오픈했을 때 시도 횟수를 1 증가시켜줌
+     */
+    public void CountTry()
     {
         flapCnt += 1;
         flapcntTxt.text = flapCnt.ToString();

@@ -7,12 +7,13 @@ public class Board : MonoBehaviour
 {
     public GameObject card;
 
-    // Start is called before the first frame update
     void Start()
     {
+        // 인덱스 순서 랜덤화
         int[] arr = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 };
         arr = arr.OrderBy(x => Random.Range(0f, 7f)).ToArray();
 
+        // 보드에 카드 배치
         for(int i = 0; i < 16; i++)
         {
             GameObject go = Instantiate(card, this.transform);
@@ -24,6 +25,7 @@ public class Board : MonoBehaviour
             go.GetComponent<Card>().Setting(arr[i]);
         }
 
+        // 남은 카드 수 설정
         GameManager.Instance.cardCount = arr.Length;
     }
 }
