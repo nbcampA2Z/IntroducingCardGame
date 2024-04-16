@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     public Animator timeAnim; // 시간이 촉박할 시 애니메이션
     bool playTimeAnim = false; // 애니메이션 동작 불리언 변수로 체크
-    float timeBomb = 5.0f; // 애니메이션 시작 시간
+    public float timeBomb = 5.0f; // 애니메이션 시작 시간
     public float time = 30.0f;      // 남은 시간 
                                     // AudioManger에서 접근해야해서 public으로 고쳤어요
     
