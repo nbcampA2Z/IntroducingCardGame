@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     public float timeOut;   // 카드 오픈 후 시간 카운트
 
     public Text scoreTxt; // 게임 점수
-    float score;
+    float score =100f; //점수 초기값
 
     
 
