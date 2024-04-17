@@ -16,7 +16,7 @@ public class ReductionTime : MonoBehaviour
         float gmaeTime = GameManager.Instance.time;
         if(gmaeTime <= 0)
         {
-            Destroy(gameObject);
+            Destroy(gameObject);  //게임이 끝나고 나오는 1초감소 효과 없애주기
         }
     }
 

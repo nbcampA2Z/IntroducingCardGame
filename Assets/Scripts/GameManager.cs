@@ -58,8 +58,7 @@ private void Awake()
     {
         time -= Time.deltaTime; // 시간 프레임 단위로 카운트 다운 하고 time변수에 넣기
         timeTxt.text = time.ToString("N2"); // time변수에 넣은 실수를 문자형으로 바꿔서 Text에다 넣기
-        // 점수를 나타내기 위해 남은 시간에서 사용한 횟수를 빼주고 score변수에 넣어주기
-        if (time <= timeBomb && playTimeAnim == false)
+        if (time <= timeBomb && playTimeAnim == false) // 시간이 설정 시간 이하이면 애니메이션 동작  // playTimeAnim 을 체크하는 이유: 업데이트문이므로 반복적으로 실행 방지
         {
             playTimeAnim = true; // true 로 바꿔줌으로써 반복 실행 방지
             timeAnim.SetBool("startBomb", true); // 애니메이션 실행
