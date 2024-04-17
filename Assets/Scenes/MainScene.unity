@@ -698,7 +698,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _androidGameId: 5596160
   _iOSGameId: 5596161
-  _testMode: 0
+  _testMode: 1
 --- !u!4 &667944516
 Transform:
   m_ObjectHideFlags: 0
@@ -970,7 +970,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1379308635
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -123,10 +123,10 @@ private void Awake()
         // 불일치할 경우(실패)
         else
         {
-<<<<<<< HEAD
+
             audioSource.PlayOneShot(notMatched);// 땡소리 출력
             ShowName(false); // "실패" 문구 출력
-=======
+
             if (firstCard.flipped == true || secondCard.flipped == true) // 뒤집힌 카드 확인
             {
                 time -= 1f; // 실패시 시간추가 카운트다운 일시 마이너스로 바꿔주면됨
@@ -136,7 +136,7 @@ private void Awake()
             }
 
             audioSource.PlayOneShot(notMatched); //틀렸을때 땡 소리 출력
->>>>>>> 31f85c4a83ac7b65412cc19f0ed4d5c99c8e13f5
+
             CountTry(); // 시도횟수 1 증가
             firstCard.CloseCard();
             secondCard.CloseCard();
@@ -178,9 +178,7 @@ private void Awake()
         flapCnt += 1;
         flapcntTxt.text = flapCnt.ToString();
     }
-<<<<<<< HEAD
-}
-=======
 
 }
->>>>>>> 31f85c4a83ac7b65412cc19f0ed4d5c99c8e13f5
+
+
