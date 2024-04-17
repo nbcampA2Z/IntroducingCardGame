@@ -9,8 +9,6 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public GameObject reductionTime; // 1초 감소 프리팹 받아오기
-    public GameObject canvas; // 캔버스 위치 받기 위해
-
 
     public Card firstCard;  // 처음 오픈한 카드
     public Card secondCard; // 두 번째 오픈한 카드
@@ -40,10 +38,15 @@ public class GameManager : MonoBehaviour
     
 
     public Text scoreTxt; // 게임 점수
-    float score; //점수 초기값
-    public GameObject board;// 보드 게임오브젝트  
+    int score; //점수 초기값 // float -> int
+    public GameObject board;// 보드 게임오브젝트
 
-private void Awake()
+    public GameObject scoreEffect; // 점수 이펙트 프리팹
+    public bool isPlus = false; // 플러스 or 마이너스
+    public int plusScore = 10; // 플러스 점수
+    public int minusScore = 1; // 마이너스 점수
+
+    private void Awake()
     {
         if (Instance == null)
         {
@@ -68,9 +71,9 @@ private void Awake()
             playTimeAnim = true; // true 로 바꿔줌으로써 반복 실행 방지
             timeAnim.SetBool("startBomb", true); // 애니메이션 실행
         }
-        if (score < 0.0f)
+        if (score <= 0)
         {
-            score = 0.0f;
+            score = 0;
         }
 
         // 0초가 되면 게임 종료
@@ -123,7 +126,11 @@ private void Awake()
             audioSource.PlayOneShot(clip);
             firstCard.DestroyCard();
             secondCard.DestroyCard();
-            score += 10f; // 성공시 플러스 10점해주기
+            score += plusScore; // 성공시 플러스 10점해주기
+            
+            isPlus = true;
+            Instantiate(scoreEffect, scoreTxt.transform);
+
             cardCount -= 2;
             // 마지막 카드일 경우 게임 종료
             if (cardCount == 0)
@@ -142,7 +149,6 @@ private void Awake()
         // 불일치할 경우(실패)
         else
         {
-
             audioSource.PlayOneShot(notMatched);// 땡소리 출력
             ShowName(false); // "실패" 문구 출력
 
@@ -150,8 +156,12 @@ private void Awake()
             {
                 time -= 1f; // 실패시 시간추가 카운트다운 일시 마이너스로 바꿔주면됨
                 ShowName(false); // "실패" 문구 출력
-                score -= 1f; // 실패시 점수 마이너스 1점하기
-                Instantiate(reductionTime, canvas.transform); // 1초 감소 프리팹 생성, 부모 위치 기준으로
+                score -= minusScore; // 실패시 점수 마이너스 1점하기
+
+                isPlus = false;
+                Instantiate(scoreEffect, scoreTxt.transform);
+
+                Instantiate(reductionTime, timeTxt.gameObject.transform); // 1초 감소 프리팹 생성, 부모 위치 기준으로
             }
 
             audioSource.PlayOneShot(notMatched); //틀렸을때 땡 소리 출력
