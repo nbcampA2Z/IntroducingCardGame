@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
@@ -68,7 +68,7 @@ private void Awake()
             score = 0.0f;
         }
 
-        // 30초 경과시 게임 종료
+        // 0초가 되면 게임 종료
         if (time <= 0.0f)
         {
             time = 0.0f; // 오차 제거
@@ -123,14 +123,27 @@ private void Awake()
         // 불일치할 경우(실패)
         else
         {
+<<<<<<< HEAD
             audioSource.PlayOneShot(notMatched);// 땡소리 출력
             ShowName(false); // "실패" 문구 출력
+=======
+            if (firstCard.flipped == true || secondCard.flipped == true) // 뒤집힌 카드 확인
+            {
+                time -= 1f; // 실패시 시간추가 카운트다운 일시 마이너스로 바꿔주면됨
+                ShowName(false); // "실패" 문구 출력
+                score -= 1f; // 실패시 점수 마이너스 1점하기
+                Instantiate(reductionTime, canvas.transform); // 1초 감소 프리팹 생성, 부모 위치 기준으로
+            }
+
+            audioSource.PlayOneShot(notMatched); //틀렸을때 땡 소리 출력
+>>>>>>> 31f85c4a83ac7b65412cc19f0ed4d5c99c8e13f5
             CountTry(); // 시도횟수 1 증가
             firstCard.CloseCard();
             secondCard.CloseCard();
-            time -= 1f; // 실패시 시간추가 카운트다운 일시 마이너스로 바꿔주면됨
-            score -= 1f; // 실패시 점수 마이너스 1점하기
-            Instantiate(reductionTime, canvas.transform); // 1초 감소 프리팹 생성, 부모 위치 기준으로
+            firstCard.ColorChange(); //닫힌 후 색 변경
+            secondCard.ColorChange(); //닫힌 후 색 변경2
+            firstCard.flipped = true; // 뒤집힌 카드
+            secondCard.flipped = true; // 뒤집힌 카드2
         }
         // 초기화
         firstCard = null;
@@ -165,4 +178,9 @@ private void Awake()
         flapCnt += 1;
         flapcntTxt.text = flapCnt.ToString();
     }
+<<<<<<< HEAD
 }
+=======
+
+}
+>>>>>>> 31f85c4a83ac7b65412cc19f0ed4d5c99c8e13f5
