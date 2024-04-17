@@ -68,7 +68,7 @@ private void Awake()
             score = 0.0f;
         }
 
-        // 30초 경과시 게임 종료
+        // 0초가 되면 게임 종료
         if (time <= 0.0f)
         {
             time = 0.0f; // 오차 제거
