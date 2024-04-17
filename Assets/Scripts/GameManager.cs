@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     public int flapCnt;     // 시도 횟수(카드를 오픈한 횟수)
     public Text flapcntTxt; // 시도 횟수 텍스트
     public float timeOut;   // 카드 오픈 후 시간 카운트
+    
 
     public Text scoreTxt; // 게임 점수
     float score; //점수 초기값
@@ -88,6 +89,7 @@ private void Awake()
             endTxt.SetActive(true);
             board.SetActive(false);
             nameTxt.gameObject.SetActive(false);
+            flapcntTxt.text = flapCnt.ToString();
         }
 
         // 첫 카드 오픈 후 5초 경과 시 다시 엎어놓음
@@ -106,7 +108,7 @@ private void Awake()
             timeOut = 3f;
         }
         scoreTxt.text = score.ToString(); // 점수 표기
-
+     
     }
     /* Matched 함수
      * 2장의 카드를 오픈했을 때 서로 일치하는지(성공) 불일치하는지(실패) 판별함
@@ -128,14 +130,13 @@ private void Awake()
             {           
                 // 남은카드 0장(승리)시 오디오 출력
                 GetComponent<AudioSource>().volume = audioSource.volume * 0.3f;
-                audioSource.PlayOneShot(Victory);                    
-                
+                audioSource.PlayOneShot(Victory);
                 Time.timeScale = 0.0f;
+                flapcntTxt.text = flapCnt.ToString();
                 winTxt.SetActive(true);
                 board.SetActive(false);
                 nameTxt.gameObject.SetActive(false);
-               
-                flapcntTxt.text = flapCnt.ToString(); // 뒤집은 시도 횟수 표기
+
             }
         }
         // 불일치할 경우(실패)
@@ -196,7 +197,6 @@ private void Awake()
         flapCnt += 1;
         flapcntTxt.text = flapCnt.ToString();
     }
-
 }
 //푸시 확인용 주석입니다
 

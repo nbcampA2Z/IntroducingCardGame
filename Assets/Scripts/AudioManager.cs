@@ -8,7 +8,7 @@ public class AudioManager : MonoBehaviour
 
     AudioSource audioSource;
     public AudioClip clip;
-    bool PitchFlag = false; // ÇÇÄ¡°ª Á¶Àı µ¿ÀÛ Ã¼Å© º¯¼ö
+    bool PitchFlag = false; // í”¼ì¹˜ê°’ ì¡°ì ˆ ë™ì‘ ì²´í¬ ë³€ìˆ˜
 
 
     private void Awake()
@@ -31,20 +31,20 @@ public class AudioManager : MonoBehaviour
         audioSource.Play();
     }
 
-    // BGMÀÇ ÇÇÄ¡°ªÀ» Á¶ÀıÇÏ±â À§ÇØ ÀÓÀÇ·Î PitchFlag ÇÔ¼ö¸¦ ¸¸µë
+    // BGMì˜ í”¼ì¹˜ê°’ì„ ì¡°ì ˆí•˜ê¸° ìœ„í•´ ì„ì˜ë¡œ PitchFlag í•¨ìˆ˜ë¥¼ ë§Œë“¬
 
     void Update()
     {
-        //³²Àº ½Ã°£ÀÌ NÃÊ ¹Ì¸¸ÀÏ¶§ , ÇÇÄ¡ ÇÃ·¡±× ÇÔ¼ö°¡ falseÀÏ´ë AudioSorce¿¡¼­ ÇÇÄ¡°ªÀ» 1.3¹è·Î Á¶Àı (Áö±İÀº 10ÃÊ·Î ¼³Á¤)
-        //Updatd ¹®ÀÌ¶ó ÇÁ·¹ÀÓ¸¶´Ù 1.3¹è°¡ µÇÁö ¾ÊÀ¸·Á¸é PitchFlag Ã¼Å©·Î ÇÑ¹ø¸¸ µ¿ÀÛÇØ¾ß ÇÔ
+        //ë‚¨ì€ ì‹œê°„ì´ Nì´ˆ ë¯¸ë§Œì¼ë•Œ , í”¼ì¹˜ í”Œë˜ê·¸ í•¨ìˆ˜ê°€ falseì¼ëŒ€ AudioSorceì—ì„œ í”¼ì¹˜ê°’ì„ 1.3ë°°ë¡œ ì¡°ì ˆ (ì§€ê¸ˆì€ 10ì´ˆë¡œ ì„¤ì •)
+        //Updatd ë¬¸ì´ë¼ í”„ë ˆì„ë§ˆë‹¤ 1.3ë°°ê°€ ë˜ì§€ ì•Šìœ¼ë ¤ë©´ PitchFlag ì²´í¬ë¡œ í•œë²ˆë§Œ ë™ì‘í•´ì•¼ í•¨
         if (GameManager.Instance.time <= GameManager.Instance.timeBomb && PitchFlag == false)
         {
             GetComponent<AudioSource>().pitch = audioSource.pitch * 1.3f;
             PitchFlag = true;
         }
 
-        // Å¸ÀÓ¿À¹ö°¡ µÇ°Å³ª Ä«µå¸¦ ´Ù ¸ÂÃç¼­ ½Â¸®ÇÏ¸é bgm Á¾·á
-        // Å¸ÀÓ¿À¹ö½Ã¿¡´Â ÃßÈÄ¿¡ ´Ù¸¥ bgmÀ» Ãß°¡ »ğÀÔÇÒ ¼öµµ ÀÖÀ½
+        // íƒ€ì„ì˜¤ë²„ê°€ ë˜ê±°ë‚˜ ì¹´ë“œë¥¼ ë‹¤ ë§ì¶°ì„œ ìŠ¹ë¦¬í•˜ë©´ bgm ì¢…ë£Œ
+        // íƒ€ì„ì˜¤ë²„ì‹œì—ëŠ” ì¶”í›„ì— ë‹¤ë¥¸ bgmì„ ì¶”ê°€ ì‚½ì…í•  ìˆ˜ë„ ìˆìŒ
 
         if(GameManager.Instance.time <= 0.0f || GameManager.Instance.cardCount == 0)
         {
