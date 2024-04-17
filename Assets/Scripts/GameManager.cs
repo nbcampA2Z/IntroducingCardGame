@@ -17,10 +17,14 @@ public class GameManager : MonoBehaviour
     public Text timeTxt;    // 남은 시간 텍스트
     public Text nameTxt;    // 이름 텍스트
     public GameObject endTxt;   // 게임종료 문구
+    public GameObject winTxt;   // 승리 문구
     AudioSource audioSource;
     public AudioClip clip;  // 성공 시 출력될 소리
     public AudioClip notMatched; // 실패 시 출력될 소리
     public AudioClip Victory; // 카드 다 맞추면 출력될 소리
+    public AudioClip Fail;    // 게임오버시 출력될 소리
+
+    bool isFail = false;
 
     public Animator timeAnim; // 시간이 촉박할 시 애니메이션
     bool playTimeAnim = false; // 애니메이션 동작 불리언 변수로 체크
@@ -71,10 +75,19 @@ private void Awake()
         // 0초가 되면 게임 종료
         if (time <= 0.0f)
         {
+            //update 문이라 한번만 출력해야해서 boolen값으로 체크해줌
+            if(!isFail)
+            {
+                //실패 브금 출력 및 볼륨 0.3배로 조절
+                audioSource.PlayOneShot(Fail);
+                GetComponent<AudioSource>().volume = audioSource.volume * 0.3f;
+                isFail = true;
+            }
             time = 0.0f; // 오차 제거
             Time.timeScale = 0.0f;
             endTxt.SetActive(true);
             board.SetActive(false);
+            nameTxt.gameObject.SetActive(false);
         }
 
         // 첫 카드 오픈 후 5초 경과 시 다시 엎어놓음
@@ -111,13 +124,15 @@ private void Awake()
             cardCount -= 2;
             // 마지막 카드일 경우 게임 종료
             if (cardCount == 0)
-            {
+            {           
                 // 남은카드 0장(승리)시 오디오 출력
-                audioSource.PlayOneShot(Victory);
+                GetComponent<AudioSource>().volume = audioSource.volume * 0.3f;
+                audioSource.PlayOneShot(Victory);                    
+                
                 Time.timeScale = 0.0f;
-                endTxt.SetActive(true);
+                winTxt.SetActive(true);
                 board.SetActive(false);
-                scoreTxt.text = score.ToString("N0");// score변수에 넣은 실수를 문자형으로 바꿔서 Text에다 넣기
+                nameTxt.gameObject.SetActive(false);
             }
         }
         // 불일치할 경우(실패)
