@@ -5,6 +5,7 @@ using UnityEngine;
 public class Card : MonoBehaviour
 {
     public int idx = 0;         // 카드 번호
+    public bool flipped;        // 뒤집기 확인
     public GameObject front;    // 카드 앞면 (사진)
     public GameObject back;     // 카드 뒷면 (물음표)
     public Animator anim;       // 카드 애니메이터
@@ -43,6 +44,7 @@ public class Card : MonoBehaviour
 
         audioSource.PlayOneShot(clip);
         anim.SetBool("isOpen", true);
+        Invoke("OpenCardInvoke", 0.57f);
 
         if(GameManager.Instance.firstCard == null)
         {
@@ -55,6 +57,12 @@ public class Card : MonoBehaviour
         }
     }
     
+    public void OpenCardInvoke()
+    {
+        front.SetActive(true);
+        back.SetActive(false);
+    }
+
     /* DestroyCard 함수
      * 해당 카드를 보드에서 제외함
      * 오픈한 두 카드가 일치할 경우 이 함수가 호출됨

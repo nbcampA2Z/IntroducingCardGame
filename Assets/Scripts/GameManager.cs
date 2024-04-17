@@ -91,13 +91,19 @@ public class GameManager : MonoBehaviour
         // 불일치할 경우(실패)
         else
         {
-            ShowName(false); // "실패" 문구 출력
+            if (firstCard.flipped == true || secondCard.flipped == true) // 뒤집힌 카드 확인
+            {
+                time += 5f; // 실패시 시간추가 카운트다운 일시 마이너스로 바꿔주면됨
+                ShowName(false); // "실패" 문구 출력
+            }
             CountTry(); // 시도횟수 1 증가
             firstCard.CloseCard();
             secondCard.CloseCard();
             firstCard.ColorChange(); //닫힌 후 색 변경
             secondCard.ColorChange(); //닫힌 후 색 변경2
-            time += 1f; // 실패시 시간추가 카운트다운 일시 마이너스로 바꿔주면됨
+            firstCard.flipped = true; // 뒤집힌 카드
+            secondCard.flipped = true; // 뒤집힌 카드2
+            
         }
         // 초기화
         firstCard = null;
