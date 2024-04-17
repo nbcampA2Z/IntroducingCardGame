@@ -4,24 +4,27 @@ using UnityEngine;
 
 public class Card : MonoBehaviour
 {
-    public int idx = 0;         // Ä«µå ¹øÈ£
-    public GameObject front;    // Ä«µå ¾Õ¸é (»çÁø)
-    public GameObject back;     // Ä«µå µŞ¸é (¹°À½Ç¥)
-    public Animator anim;       // Ä«µå ¾Ö´Ï¸ŞÀÌÅÍ
+    public int idx = 0;         // ì¹´ë“œ ë²ˆí˜¸
+    public bool flipped;        // ë’¤ì§‘ê¸° í™•ì¸
+    public GameObject front;    // ì¹´ë“œ ì•ë©´ (ì‚¬ì§„)
+    public GameObject back;     // ì¹´ë“œ ë’·ë©´ (ë¬¼ìŒí‘œ)
+    public Animator anim;       // ì¹´ë“œ ì• ë‹ˆë©”ì´í„°
     public SpriteRenderer frontImage;
+    public SpriteRenderer backImage;
     AudioSource audioSource;
-    public AudioClip clip;      // Ä«µå µÚÁı´Â ¼Ò¸®
-    public string name;         // ÀÌ¸§
-    string[] nameArr = { "¼Õ¿µÁÖ", "±èÀçÇõ", "ÀÓÀçÈÆ", "¹Ú½ÅÈÄ", "½ÅÀç¿ø", "¼Õ¿µÁÖ", "±èÀçÇõ", "ÀÓÀçÈÆ", "¹Ú½ÅÈÄ", "½ÅÀç¿ø" };
+    public AudioClip clip;      // ì¹´ë“œ ë’¤ì§‘ëŠ” ì†Œë¦¬
+    public string name;         // ì´ë¦„
+    string[] nameArr = { "ì†ì˜ì£¼", "ê¹€ì¬í˜", "ì„ì¬í›ˆ", "ë°•ì‹ í›„", "ì‹ ì¬ì›", "ì†ì˜ì£¼", "ê¹€ì¬í˜", "ì„ì¬í›ˆ", "ë°•ì‹ í›„", "ì‹ ì¬ì›" };
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        backImage = back.GetComponent<SpriteRenderer>(); //ë’¤ì§‘ê¸° í›„ ìƒ‰ ë³€ê²½ì„ ìœ„í•œ GetComponent
     }
 
-    /* Setting ÇÔ¼ö
-     * Ä«µå ÀÎµ¦½º¿¡ µû¶ó »çÁø°ú ÀÌ¸§À» ¼³Á¤ÇØÁÜ
-     * Ä«µå ÀÎµ¦½º¸¦ intÇü º¯¼ö number·Î ¹ŞÀ½
+    /* Setting í•¨ìˆ˜
+     * ì¹´ë“œ ì¸ë±ìŠ¤ì— ë”°ë¼ ì‚¬ì§„ê³¼ ì´ë¦„ì„ ì„¤ì •í•´ì¤Œ
+     * ì¹´ë“œ ì¸ë±ìŠ¤ë¥¼ intí˜• ë³€ìˆ˜ numberë¡œ ë°›ìŒ
      */
     public void Setting(int number)
     {
@@ -30,10 +33,10 @@ public class Card : MonoBehaviour
         name = nameArr[idx];
     }
 
-    /* OpenCard ÇÔ¼ö
-     * Ä«µå¸¦ ¿ÀÇÂÇÏ°í ¾Ö´Ï¸ŞÀÌ¼Ç°ú ¼Ò¸®¸¦ Ãâ·ÂÇÔ
-     * µÎ ¹øÂ°·Î µÚÁıÀº Ä«µåÀÏ °æ¿ì ¼­·Î ÀÏÄ¡ÇÏ´Â Ä«µåÀÎÁö
-     * °ÔÀÓ¸Å´ÏÀúÀÇ Matched() ÇÔ¼ö¸¦ ÅëÇØ °Ë»çÇÔ
+    /* OpenCard í•¨ìˆ˜
+     * ì¹´ë“œë¥¼ ì˜¤í”ˆí•˜ê³  ì• ë‹ˆë©”ì´ì…˜ê³¼ ì†Œë¦¬ë¥¼ ì¶œë ¥í•¨
+     * ë‘ ë²ˆì§¸ë¡œ ë’¤ì§‘ì€ ì¹´ë“œì¼ ê²½ìš° ì„œë¡œ ì¼ì¹˜í•˜ëŠ” ì¹´ë“œì¸ì§€
+     * ê²Œì„ë§¤ë‹ˆì €ì˜ Matched() í•¨ìˆ˜ë¥¼ í†µí•´ ê²€ì‚¬í•¨
      */
     public void OpenCard()
     {
@@ -42,7 +45,7 @@ public class Card : MonoBehaviour
         audioSource.PlayOneShot(clip);
         anim.SetBool("isOpen", true);
 
-        //µû·Î »©µĞ FlipCardInvoke ÇÔ¼ö¸¦ invoke ÇÔ¼ö·Î Áö¿¬½ÃÄÑ ºÒ·¯¿È
+        //ë”°ë¡œ ë¹¼ë‘” FlipCardInvoke í•¨ìˆ˜ë¥¼ invoke í•¨ìˆ˜ë¡œ ì§€ì—°ì‹œì¼œ ë¶ˆëŸ¬ì˜´
 
         Invoke("FlipCardInvoke", 0.5f);
 
@@ -57,8 +60,8 @@ public class Card : MonoBehaviour
         }
     }
 
-    //Ä«µåÀÇ back°ú front¸¦ ÄÑ°í ²ô´Â ±â´ÉÀ» invoke ½ÃÅ°±â À§ÇØ
-    //FlipCardInvoke ÇÔ¼ö·Î µû·Î »©³õÀ½
+    //ì¹´ë“œì˜ backê³¼ frontë¥¼ ì¼œê³  ë„ëŠ” ê¸°ëŠ¥ì„ invoke ì‹œí‚¤ê¸° ìœ„í•´
+    //FlipCardInvoke í•¨ìˆ˜ë¡œ ë”°ë¡œ ë¹¼ë†“ìŒ
 
     void FlipCardInvoke()
     {
@@ -67,9 +70,9 @@ public class Card : MonoBehaviour
     }
 
 
-    /* DestroyCard ÇÔ¼ö
-     * ÇØ´ç Ä«µå¸¦ º¸µå¿¡¼­ Á¦¿ÜÇÔ
-     * ¿ÀÇÂÇÑ µÎ Ä«µå°¡ ÀÏÄ¡ÇÒ °æ¿ì ÀÌ ÇÔ¼ö°¡ È£ÃâµÊ
+    /* DestroyCard í•¨ìˆ˜
+     * í•´ë‹¹ ì¹´ë“œë¥¼ ë³´ë“œì—ì„œ ì œì™¸í•¨
+     * ì˜¤í”ˆí•œ ë‘ ì¹´ë“œê°€ ì¼ì¹˜í•  ê²½ìš° ì´ í•¨ìˆ˜ê°€ í˜¸ì¶œë¨
      */
     public void DestroyCard()
     {
@@ -81,9 +84,9 @@ public class Card : MonoBehaviour
         Destroy(gameObject);
     }
 
-    /* CloseCard ÇÔ¼ö
-    * ÇØ´ç Ä«µå¸¦ º¸µå¿¡¼­ ´Ù½Ã ¾ş¾î ³õÀ½
-    * ¿ÀÇÂÇÑ µÎ Ä«µå°¡ ´Ù¸¦ °æ¿ì ÀÌ ÇÔ¼ö°¡ È£ÃâµÊ
+    /* CloseCard í•¨ìˆ˜
+    * í•´ë‹¹ ì¹´ë“œë¥¼ ë³´ë“œì—ì„œ ë‹¤ì‹œ ì—ì–´ ë†“ìŒ
+    * ì˜¤í”ˆí•œ ë‘ ì¹´ë“œê°€ ë‹¤ë¥¼ ê²½ìš° ì´ í•¨ìˆ˜ê°€ í˜¸ì¶œë¨
     */
     public void CloseCard()
     {
@@ -96,4 +99,15 @@ public class Card : MonoBehaviour
         front.SetActive(false);
         back.SetActive(true);
     }
+
+    public void ColorChange() //ìƒ‰ ë³€ê²½ í•¨ìˆ˜ ë¶ˆëŸ¬ì˜¤ê¸°
+    {
+        Invoke("ColorChangeInvoke", 1.0f);
+    }
+
+    void ColorChangeInvoke() //ìƒ‰ ë³€ê²½ í•¨ìˆ˜
+    {
+        backImage.color = Color.grey;
+    }
+
 }
