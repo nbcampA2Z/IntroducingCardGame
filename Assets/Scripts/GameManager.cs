@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     AudioSource audioSource;
     public AudioClip clip;  // 성공 시 출력될 소리
 
-    float time = 0.0f;      // 남은 시간
+    float time = 30.0f;      // 남은 시간
     public int cardCount = 0;   // 보드에 남은 카드 수
 
     public int flapCnt;     // 시도 횟수(카드를 오픈한 횟수)
@@ -38,11 +38,11 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        time += Time.deltaTime;
+        time -= Time.deltaTime;
         timeTxt.text = time.ToString("N2");
         
         // 30초 경과시 게임 종료
-        if(time >= 30.0f)
+        if(time <= 0f)
         {
             Time.timeScale = 0.0f;
             endTxt.SetActive(true);
@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
         {
             if (firstCard.flipped == true || secondCard.flipped == true) // 뒤집힌 카드 확인
             {
-                time += 5f; // 실패시 시간추가 카운트다운 일시 마이너스로 바꿔주면됨
+                time -= 1f; // 실패시 시간추가 카운트다운 일시 마이너스로 바꿔주면됨
                 ShowName(false); // "실패" 문구 출력
             }
             CountTry(); // 시도횟수 1 증가
