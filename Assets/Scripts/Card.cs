@@ -5,10 +5,7 @@ using UnityEngine;
 public class Card : MonoBehaviour
 {
     public int idx = 0;         // 카드 번호
-<<<<<<< Updated upstream
     public bool flipped;        // 뒤집기 확인
-=======
->>>>>>> Stashed changes
     public GameObject front;    // 카드 앞면 (사진)
     public GameObject back;     // 카드 뒷면 (물음표)
     public Animator anim;       // 카드 애니메이터
@@ -47,14 +44,10 @@ public class Card : MonoBehaviour
 
         audioSource.PlayOneShot(clip);
         anim.SetBool("isOpen", true);
-<<<<<<< Updated upstream
-        Invoke("OpenCardInvoke", 0.57f);
-=======
 
         //따로 빼둔 FlipCardInvoke 함수를 invoke 함수로 지연시켜 불러옴
 
         Invoke("FlipCardInvoke", 0.5f);
->>>>>>> Stashed changes
 
         if(GameManager.Instance.firstCard == null)
         {
@@ -66,25 +59,16 @@ public class Card : MonoBehaviour
             GameManager.Instance.Matched();
         }
     }
-<<<<<<< Updated upstream
-    
-    public void OpenCardInvoke()
-=======
 
     //카드의 back과 front를 켜고 끄는 기능을 invoke 시키기 위해
     //FlipCardInvoke 함수로 따로 빼놓음
 
     void FlipCardInvoke()
->>>>>>> Stashed changes
     {
         front.SetActive(true);
         back.SetActive(false);
     }
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
     /* DestroyCard 함수
      * 해당 카드를 보드에서 제외함
      * 오픈한 두 카드가 일치할 경우 이 함수가 호출됨
