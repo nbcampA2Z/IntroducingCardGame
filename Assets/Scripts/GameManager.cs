@@ -103,9 +103,10 @@ private void Awake()
         }
         else
         {
-            timeOut = 5f;
+            timeOut = 3f;
         }
-        
+        scoreTxt.text = score.ToString(); // 점수 표기
+
     }
     /* Matched 함수
      * 2장의 카드를 오픈했을 때 서로 일치하는지(성공) 불일치하는지(실패) 판별함
@@ -133,6 +134,8 @@ private void Awake()
                 winTxt.SetActive(true);
                 board.SetActive(false);
                 nameTxt.gameObject.SetActive(false);
+               
+                flapcntTxt.text = flapCnt.ToString(); // 뒤집은 시도 횟수 표기
             }
         }
         // 불일치할 경우(실패)
