@@ -841,7 +841,7 @@ MonoBehaviour:
   time: 500
   cardCount: 0
   flapCnt: 0
-  flapcntTxt: {fileID: 315645832}
+  flapcntTxt: {fileID: 1994566953}
   timeOut: 0
   scoreTxt: {fileID: 127044016}
   board: {fileID: 278837058}
@@ -1052,7 +1052,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1379308635
 MonoBehaviour:
   m_ObjectHideFlags: 0
