@@ -36,9 +36,7 @@ public class GameManager : MonoBehaviour
 
     public Text scoreTxt; // 게임 점수
     float score; //점수 초기값
-    public GameObject board;// 보드 게임오브젝트
-
-    
+    public GameObject board;// 보드 게임오브젝트  
 
 private void Awake()
     {
@@ -58,7 +56,9 @@ private void Awake()
     {
         time -= Time.deltaTime; // 시간 프레임 단위로 카운트 다운 하고 time변수에 넣기
         timeTxt.text = time.ToString("N2"); // time변수에 넣은 실수를 문자형으로 바꿔서 Text에다 넣기
-        if (time <= timeBomb && playTimeAnim == false) // 시간이 설정 시간 이하이면 애니메이션 동작  // playTimeAnim 을 체크하는 이유: 업데이트문이므로 반복적으로 실행 방지
+        // 시간이 설정 시간 이하이면 애니메이션 동작
+        // playTimeAnim 을 체크하는 이유: 업데이트문이므로 반복적으로 실행 방지
+        if (time <= timeBomb && playTimeAnim == false) 
         {
             playTimeAnim = true; // true 로 바꿔줌으로써 반복 실행 방지
             timeAnim.SetBool("startBomb", true); // 애니메이션 실행
@@ -92,9 +92,8 @@ private void Awake()
         {
             timeOut = 5f;
         }
-        scoreTxt.text = score.ToString("N0");// score변수에 넣은 실수를 문자형으로 바꿔서 Text에다 넣기
+        
     }
-
     /* Matched 함수
      * 2장의 카드를 오픈했을 때 서로 일치하는지(성공) 불일치하는지(실패) 판별함
      */
@@ -118,12 +117,13 @@ private void Awake()
                 Time.timeScale = 0.0f;
                 endTxt.SetActive(true);
                 board.SetActive(false);
+                scoreTxt.text = score.ToString("N0");// score변수에 넣은 실수를 문자형으로 바꿔서 Text에다 넣기
             }
         }
         // 불일치할 경우(실패)
         else
         {
-            audioSource.PlayOneShot(notMatched);
+            audioSource.PlayOneShot(notMatched);// 땡소리 출력
             ShowName(false); // "실패" 문구 출력
             CountTry(); // 시도횟수 1 증가
             firstCard.CloseCard();
@@ -165,5 +165,4 @@ private void Awake()
         flapCnt += 1;
         flapcntTxt.text = flapCnt.ToString();
     }
-
 }
