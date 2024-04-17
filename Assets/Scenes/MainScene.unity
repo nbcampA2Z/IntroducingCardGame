@@ -744,12 +744,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b42790e34341f4db132294845511a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reductionTime: {fileID: 2073209559192215480, guid: a5481138a9e9f704ba741b65b110a411, type: 3}
+  canvas: {fileID: 1574330934}
   firstCard: {fileID: 0}
   secondCard: {fileID: 0}
   timeTxt: {fileID: 272445093}
   nameTxt: {fileID: 1130511044}
   endTxt: {fileID: 1809097141}
   clip: {fileID: 8300000, guid: 2960b86cffbf215489ff26b7103333f3, type: 3}
+  notMatched: {fileID: 8300000, guid: 0ddd5e76011e38145aae39e343b0d098, type: 3}
+  Victory: {fileID: 8300000, guid: 1a7be2a84018c8642baf0c090e5fe58f, type: 3}
   timeAnim: {fileID: 272445095}
   timeBomb: 5
   time: 30
@@ -1295,7 +1299,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1809097142
 RectTransform:
   m_ObjectHideFlags: 0
