@@ -13,7 +13,11 @@ public class ReductionTime : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        float gmaeTime = GameManager.Instance.time;
+        if(gmaeTime <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void DestroyReductionTime()

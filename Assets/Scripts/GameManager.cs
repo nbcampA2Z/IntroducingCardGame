@@ -35,7 +35,8 @@ public class GameManager : MonoBehaviour
     public float timeOut;   // 카드 오픈 후 시간 카운트
 
     public Text scoreTxt; // 게임 점수
-    float score =100f; //점수 초기값
+    float score; //점수 초기값
+    public GameObject board;// 보드 게임오브젝트
 
     
 
@@ -57,7 +58,7 @@ private void Awake()
     {
         time -= Time.deltaTime; // 시간 프레임 단위로 카운트 다운 하고 time변수에 넣기
         timeTxt.text = time.ToString("N2"); // time변수에 넣은 실수를 문자형으로 바꿔서 Text에다 넣기
-        score = time - flapCnt;  // 점수를 나타내기 위해 남은 시간에서 사용한 횟수를 빼주고 score변수에 넣어주기
+        // 점수를 나타내기 위해 남은 시간에서 사용한 횟수를 빼주고 score변수에 넣어주기
         if (time <= timeBomb && playTimeAnim == false)
         {
             playTimeAnim = true; // true 로 바꿔줌으로써 반복 실행 방지
@@ -74,6 +75,7 @@ private void Awake()
             time = 0.0f; // 오차 제거
             Time.timeScale = 0.0f;
             endTxt.SetActive(true);
+            board.SetActive(false);
         }
 
         // 첫 카드 오픈 후 5초 경과 시 다시 엎어놓음
@@ -92,7 +94,6 @@ private void Awake()
             timeOut = 5f;
         }
         scoreTxt.text = score.ToString("N0");// score변수에 넣은 실수를 문자형으로 바꿔서 Text에다 넣기
-
     }
 
     /* Matched 함수
@@ -108,7 +109,7 @@ private void Awake()
             audioSource.PlayOneShot(clip);
             firstCard.DestroyCard();
             secondCard.DestroyCard();
-            score += 1f; // 성공시 플러스 1점해주기
+            score += 10f; // 성공시 플러스 10점해주기
             cardCount -= 2;
             // 마지막 카드일 경우 게임 종료
             if (cardCount == 0)
@@ -117,6 +118,7 @@ private void Awake()
                 audioSource.PlayOneShot(Victory);
                 Time.timeScale = 0.0f;
                 endTxt.SetActive(true);
+                board.SetActive(false);
             }
         }
         // 불일치할 경우(실패)
@@ -128,7 +130,7 @@ private void Awake()
             firstCard.CloseCard();
             secondCard.CloseCard();
             time -= 1f; // 실패시 시간추가 카운트다운 일시 마이너스로 바꿔주면됨
-
+            score -= 1f; // 실패시 점수 마이너스 1점하기
             Instantiate(reductionTime, canvas.transform); // 1초 감소 프리팹 생성, 부모 위치 기준으로
         }
         // 초기화
