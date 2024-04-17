@@ -1,6 +1,7 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject reductionTime; // 1초 감소 프리팹 받아오기
     public GameObject canvas; // 캔버스 위치 받기 위해
+
 
     public Card firstCard;  // 처음 오픈한 카드
     public Card secondCard; // 두 번째 오픈한 카드
@@ -25,16 +27,22 @@ public class GameManager : MonoBehaviour
     public float timeBomb = 5.0f; // 애니메이션 시작 시간
     public float time = 30.0f;      // 남은 시간 
                                     // AudioManger에서 접근해야해서 public으로 고쳤어요
-    
+
     public int cardCount = 0;   // 보드에 남은 카드 수
 
     public int flapCnt;     // 시도 횟수(카드를 오픈한 횟수)
     public Text flapcntTxt; // 시도 횟수 텍스트
     public float timeOut;   // 카드 오픈 후 시간 카운트
 
-    private void Awake()
+    public Text scoreTxt; // 게임 점수
+    float score; //점수 초기값
+    public GameObject board;// 보드 게임오브젝트
+
+    
+
+private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
         }
@@ -48,14 +56,16 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        time -= Time.deltaTime; // 남은 시간 감소
-        timeTxt.text = time.ToString("N2");
-
-        // 시간이 설정 시간 이하이면 애니메이션 동작  // playTimeAnim 을 체크하는 이유: 업데이트문이므로 반복적으로 실행 방지
-        if (time <= timeBomb && playTimeAnim == false)
+        time -= Time.deltaTime; // 시간 프레임 단위로 카운트 다운 하고 time변수에 넣기
+        timeTxt.text = time.ToString("N2"); // time변수에 넣은 실수를 문자형으로 바꿔서 Text에다 넣기
+        if (time <= timeBomb && playTimeAnim == false) // 시간이 설정 시간 이하이면 애니메이션 동작  // playTimeAnim 을 체크하는 이유: 업데이트문이므로 반복적으로 실행 방지
         {
             playTimeAnim = true; // true 로 바꿔줌으로써 반복 실행 방지
             timeAnim.SetBool("startBomb", true); // 애니메이션 실행
+        }
+        if (score < 0.0f)
+        {
+            score = 0.0f;
         }
 
         // 0초가 되면 게임 종료
@@ -64,6 +74,7 @@ public class GameManager : MonoBehaviour
             time = 0.0f; // 오차 제거
             Time.timeScale = 0.0f;
             endTxt.SetActive(true);
+            board.SetActive(false);
         }
 
         // 첫 카드 오픈 후 5초 경과 시 다시 엎어놓음
@@ -81,8 +92,7 @@ public class GameManager : MonoBehaviour
         {
             timeOut = 5f;
         }
-
-        // Debug.Log(timeOut);
+        scoreTxt.text = score.ToString("N0");// score변수에 넣은 실수를 문자형으로 바꿔서 Text에다 넣기
     }
 
     /* Matched 함수
@@ -91,13 +101,14 @@ public class GameManager : MonoBehaviour
     public void Matched()
     {
         // 일치할 경우(성공)
-        if(firstCard.idx == secondCard.idx)
+        if (firstCard.idx == secondCard.idx)
         {
             ShowName(true); // 이름 출력
             CountTry(); // 시도횟수 1 증가
             audioSource.PlayOneShot(clip);
             firstCard.DestroyCard();
             secondCard.DestroyCard();
+            score += 10f; // 성공시 플러스 10점해주기
             cardCount -= 2;
             // 마지막 카드일 경우 게임 종료
             if (cardCount == 0)
@@ -106,19 +117,19 @@ public class GameManager : MonoBehaviour
                 audioSource.PlayOneShot(Victory);
                 Time.timeScale = 0.0f;
                 endTxt.SetActive(true);
+                board.SetActive(false);
             }
         }
         // 불일치할 경우(실패)
         else
         {
-            //틀렸을때 땡 소리 출력
-            audioSource.PlayOneShot(notMatched);
+            audioSource.PlayOneShot(notMatched); //틀렸을때 땡 소리 출력
             ShowName(false); // "실패" 문구 출력
             CountTry(); // 시도횟수 1 증가
             firstCard.CloseCard();
             secondCard.CloseCard();
-            time -= 1f; // 실패시 시간추가, 카운트다운 일시 마이너스로 바꿔주면됨
-
+            time -= 1f; // 실패시 시간추가 카운트다운 일시 마이너스로 바꿔주면됨
+            score -= 1f; // 실패시 점수 마이너스 1점하기
             Instantiate(reductionTime, canvas.transform); // 1초 감소 프리팹 생성, 부모 위치 기준으로
         }
         // 초기화
@@ -154,4 +165,5 @@ public class GameManager : MonoBehaviour
         flapCnt += 1;
         flapcntTxt.text = flapCnt.ToString();
     }
+
 }
