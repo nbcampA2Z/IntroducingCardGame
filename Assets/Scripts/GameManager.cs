@@ -123,7 +123,7 @@ private void Awake()
         // 불일치할 경우(실패)
         else
         {
-            audioSource.PlayOneShot(notMatched);
+            audioSource.PlayOneShot(notMatched); //틀렸을때 땡 소리 출력
             ShowName(false); // "실패" 문구 출력
             CountTry(); // 시도횟수 1 증가
             firstCard.CloseCard();
