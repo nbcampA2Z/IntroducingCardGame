@@ -7,7 +7,7 @@ public class ReductionTime : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("DestroyReductionTime", 0.5f);// 0.5ÃÊ µÚ ÆÄ±«
+        Invoke("DestroyReductionTime", 0.5f); // 0.5ì´ˆ ë’¤ íŒŒê´´
     }
 
     // Update is called once per frame
@@ -16,11 +16,11 @@ public class ReductionTime : MonoBehaviour
         float gmaeTime = GameManager.Instance.time;
         if(gmaeTime <= 0)
         {
-            Destroy(gameObject);  //°ÔÀÓÀÌ ³¡³ª°í ³ª¿À´Â 1ÃÊ°¨¼Ò È¿°ú ¾ø¾ÖÁÖ±â
+            Destroy(gameObject); // ê²Œìž„ì´ ëë‚˜ê³  ë‚¨ì•„ìžˆëŠ” íš¨ê³¼ ì—†ì• ì£¼ê¸°
         }
     }
 
-    public void DestroyReductionTime()
+    void DestroyReductionTime()
     {
         Destroy(gameObject);
     }

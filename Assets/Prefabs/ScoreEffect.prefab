@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2073209559192215480
+--- !u!1 &6486621660055693861
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,25 +8,25 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1933200633725097901}
-  - component: {fileID: 7846119664577557304}
-  - component: {fileID: 750393921057718868}
-  - component: {fileID: 6266700898208440662}
-  - component: {fileID: -125921317322979976}
+  - component: {fileID: 230957682205999212}
+  - component: {fileID: 4368176049868119309}
+  - component: {fileID: 8027622434442702770}
+  - component: {fileID: 2322541423171799137}
+  - component: {fileID: 2972349582908790488}
   m_Layer: 5
-  m_Name: ReductionTime
+  m_Name: ScoreEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &1933200633725097901
+--- !u!224 &230957682205999212
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2073209559192215480}
+  m_GameObject: {fileID: 6486621660055693861}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -36,31 +36,31 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 180, y: 0}
+  m_AnchoredPosition: {x: 120, y: 0}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &7846119664577557304
+--- !u!222 &4368176049868119309
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2073209559192215480}
+  m_GameObject: {fileID: 6486621660055693861}
   m_CullTransparentMesh: 1
---- !u!114 &750393921057718868
+--- !u!114 &8027622434442702770
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2073209559192215480}
+  m_GameObject: {fileID: 6486621660055693861}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -80,18 +80,18 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "- 1\uCD08"
---- !u!95 &6266700898208440662
+  m_Text: "+0\uC810"
+--- !u!95 &2322541423171799137
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2073209559192215480}
+  m_GameObject: {fileID: 6486621660055693861}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c7f846d3e9db6c14a9cc07bd54b6609e, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9077a57b4a5e082488c91b510c049944, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -102,15 +102,17 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-125921317322979976
+--- !u!114 &2972349582908790488
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2073209559192215480}
+  m_GameObject: {fileID: 6486621660055693861}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ff56feb74496d84982cfc80575bac46, type: 3}
+  m_Script: {fileID: 11500000, guid: 6c91b55ae24918f4294385cf5e06cc22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 2322541423171799137}
+  txt: {fileID: 8027622434442702770}
