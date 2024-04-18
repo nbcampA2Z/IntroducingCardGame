@@ -15,7 +15,8 @@ public class GameManager : MonoBehaviour
     public Text timeTxt;    // 남은 시간 텍스트
     public Text nameTxt;    // 이름 텍스트
     public GameObject endTxt;   // 게임종료 문구
-   
+    public Text nowLevlelTxt;
+
     AudioSource audioSource;
     public AudioClip clip;  // 성공 시 출력될 소리
     public AudioClip notMatched; // 실패 시 출력될 소리
@@ -31,11 +32,13 @@ public class GameManager : MonoBehaviour
                                     // AudioManger에서 접근해야해서 public으로 고쳤어요
 
     public int cardCount = 0;   // 보드에 남은 카드 수
+    public int level = 1; // 레벨변수
+
 
     public int flapCnt;     // 시도 횟수(카드를 오픈한 횟수)
     public Text flapcntTxt; // 시도 횟수 텍스트
     public float timeOut;   // 카드 오픈 후 시간 카운트
-    
+
 
     public Text scoreTxt; // 게임 점수
     int score; //점수 초기값 // float -> int
@@ -45,19 +48,22 @@ public class GameManager : MonoBehaviour
     public bool isPlus = false; // 플러스 or 마이너스
     public int plusScore = 10; // 플러스 점수
     public int minusScore = 1; // 마이너스 점수
-    public Color textColor = Color.green;
+    public Color textColor = Color.green; // 색깔 초록색
+
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
         }
+        level = PlayerPrefs.GetInt("level");
     }
 
     void Start()
     {
         Time.timeScale = 1.0f;
         audioSource = GetComponent<AudioSource>();
+        nowLevlelTxt.text = level.ToString();
     }
 
     void Update()
@@ -66,7 +72,7 @@ public class GameManager : MonoBehaviour
         timeTxt.text = time.ToString("N2"); // time변수에 넣은 실수를 문자형으로 바꿔서 Text에다 넣기
         // 시간이 설정 시간 이하이면 애니메이션 동작
         // playTimeAnim 을 체크하는 이유: 업데이트문이므로 반복적으로 실행 방지
-        if (time <= timeBomb && playTimeAnim == false) 
+        if (time <= timeBomb && playTimeAnim == false)
         {
             playTimeAnim = true; // true 로 바꿔줌으로써 반복 실행 방지
             timeAnim.SetBool("startBomb", true); // 애니메이션 실행
@@ -93,6 +99,7 @@ public class GameManager : MonoBehaviour
             board.SetActive(false);
             nameTxt.gameObject.SetActive(false);
             flapcntTxt.text = flapCnt.ToString();
+            levelDown(); //레벨 초기화
         }
 
         // 첫 카드 오픈 후 5초 경과 시 다시 엎어놓음
@@ -111,7 +118,7 @@ public class GameManager : MonoBehaviour
             timeOut = 3f;
         }
         scoreTxt.text = score.ToString(); // 점수 표기
-     
+
     }
     /* Matched 함수
      * 2장의 카드를 오픈했을 때 서로 일치하는지(성공) 불일치하는지(실패) 판별함
@@ -127,14 +134,15 @@ public class GameManager : MonoBehaviour
             firstCard.DestroyCard();
             secondCard.DestroyCard();
             score += plusScore; // 성공시 플러스 10점해주기
-            
+
             isPlus = true;
             Instantiate(scoreEffect, scoreTxt.transform);
 
             cardCount -= 2;
             // 마지막 카드일 경우 게임 종료
-            if (cardCount == 18)
-            {           
+            if (cardCount == 14)
+            {
+                levelUp();
                 // 남은카드 0장(승리)시 오디오 출력
                 GetComponent<AudioSource>().volume = audioSource.volume * 0.3f;
                 audioSource.PlayOneShot(Victory);
@@ -212,6 +220,19 @@ public class GameManager : MonoBehaviour
     {
         flapCnt += 1;
         flapcntTxt.text = flapCnt.ToString();
+    }
+    public void levelUp()
+    {
+        level++; // 레벨 올리기
+        PlayerPrefs.SetInt("level", level); // 레벨을 PlayerPrefs에 저장
+
+        Debug.Log(level);
+    }
+    public void levelDown()
+    {
+        level = 1; // 낮추기
+        PlayerPrefs.SetInt("level", level); // 레벨을 PlayerPrefs에 저장
+        Debug.Log(level);
     }
 }
 //푸시 확인용 주석입니다
