@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
         level = PlayerPrefs.GetInt("level"); //게임 시작전 저장해놓은 점수 가져오기
+        isFinish = false;
     }
 
     void Start()
@@ -153,8 +154,9 @@ public class GameManager : MonoBehaviour
 
             cardCount -= 2;
             // 마지막 카드일 경우 게임 종료
-            if (cardCount == 14)
-            {           
+            if (cardCount == 0)
+            {
+                isFinish = true;
                 // 남은카드 0장(승리)시 오디오 출력
                 GetComponent<AudioSource>().volume = audioSource.volume * 0.3f;
                 audioSource.PlayOneShot(Victory);
@@ -187,7 +189,7 @@ public class GameManager : MonoBehaviour
                 ShowName(false); // "실패" 문구 출력
                 audioSource.PlayOneShot(notMatched);// 땡소리 출력
                 time -= 1f; // 실패시 시간추가 카운트다운 일시 마이너스로 바꿔주면됨
-                if(time <= 0f) // - 시간일 경우 0초로 고정
+                if (time <= 0f) // - 시간일 경우 0초로 고정
                 {
                     time = 0.0f;
                 }
@@ -247,7 +249,7 @@ public class GameManager : MonoBehaviour
 
     public void levelUp()
     {
-        level++; // 레벨 올리기
+        level = 2; // 레벨 올리기
         PlayerPrefs.SetInt("level", level); // 레벨을 PlayerPrefs에 저장
 
         Debug.Log(level);
