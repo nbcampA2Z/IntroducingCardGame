@@ -838,7 +838,7 @@ MonoBehaviour:
   time: 30
   cardCount: 0
   flapCnt: 0
-  flapcntTxt: {fileID: 0}
+  flapcntTxt: {fileID: 315645832}
   timeOut: 0
   scoreTxt: {fileID: 127044016}
   board: {fileID: 278837058}
