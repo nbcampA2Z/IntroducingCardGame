@@ -93,11 +93,6 @@ public class Card : MonoBehaviour
         back.SetActive(true);
     }
 
-    /*public void Zed()
-    {
-        anim.SetBool("isZed", true);
-    }*/
-
     public void ColorChange() //색 변경 함수 불러오기
     {
         Invoke("ColorChangeInvoke", 1.0f);
