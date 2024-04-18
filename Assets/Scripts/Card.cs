@@ -46,7 +46,6 @@ public class Card : MonoBehaviour
         anim.SetBool("isOpen", true);
 
         //따로 빼둔 FlipCardInvoke 함수를 invoke 함수로 지연시켜 불러옴
-
         front.SetActive(true);
         back.SetActive(false);
 
@@ -93,6 +92,11 @@ public class Card : MonoBehaviour
         front.SetActive(false);
         back.SetActive(true);
     }
+
+    /*public void Zed()
+    {
+        anim.SetBool("isZed", true);
+    }*/
 
     public void ColorChange() //색 변경 함수 불러오기
     {

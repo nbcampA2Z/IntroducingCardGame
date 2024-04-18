@@ -121,6 +121,10 @@ public class GameManager : MonoBehaviour
         // 일치할 경우(성공)
         if (firstCard.idx == secondCard.idx)
         {
+            /*if(firstCard.idx == 1)
+            {
+                firstCard.Zed();
+            }*/
             ShowName(true); // 이름 출력
             CountTry(); // 시도횟수 1 증가
             audioSource.PlayOneShot(clip);
