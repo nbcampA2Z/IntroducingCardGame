@@ -13,7 +13,7 @@ public class Board : MonoBehaviour
     void Start()
     {
         // 인덱스 순서 랜덤화
-        if (GameManager.Instance.level >= 2)
+        if (GameManager.Instance.level == 2)
         {
             arr = new int[] { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9 }; //카드 20개로 늘리기
             arr = arr.OrderBy(x => Random.Range(0f, 10f)).ToArray();
