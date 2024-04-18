@@ -345,8 +345,8 @@ MonoBehaviour:
     m_FontSize: 70
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 7
-    m_MaxSize: 70
+    m_MinSize: 0
+    m_MaxSize: 150
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -827,6 +827,7 @@ MonoBehaviour:
   firstCard: {fileID: 0}
   secondCard: {fileID: 0}
   timeTxt: {fileID: 272445093}
+  timeTitle: {fileID: 1628302394}
   nameTxt: {fileID: 1130511044}
   endTxt: {fileID: 1809097141}
   clip: {fileID: 8300000, guid: 2960b86cffbf215489ff26b7103333f3, type: 3}
@@ -835,7 +836,7 @@ MonoBehaviour:
   Fail: {fileID: 8300000, guid: 9f61de7a6dd55aa4b952b9126fe52cdb, type: 3}
   timeAnim: {fileID: 272445095}
   timeBomb: 5
-  time: 30
+  time: 50
   cardCount: 0
   flapCnt: 0
   flapcntTxt: {fileID: 315645832}
@@ -846,7 +847,11 @@ MonoBehaviour:
   isPlus: 0
   plusScore: 10
   minusScore: 1
+
+  isFinish: 0
+
   textColor: {r: 0, g: 1, b: 0, a: 1}
+
 --- !u!4 &1092420321
 Transform:
   m_ObjectHideFlags: 0
