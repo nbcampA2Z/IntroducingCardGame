@@ -846,6 +846,7 @@ MonoBehaviour:
   isPlus: 0
   plusScore: 10
   minusScore: 1
+  textColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!4 &1092420321
 Transform:
   m_ObjectHideFlags: 0
