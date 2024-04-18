@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     bool playTimeAnim = false; // 애니메이션 동작 불리언 변수로 체크
     public float timeBomb = 5.0f; // 애니메이션 시작 시간
     public float time = 30.0f;      // 남은 시간 
-                                    // AudioManger에서 접근해야해서 public으로 고쳤어요
+                                    // AudioManger에서 접근해야해서 public으로 수정
 
     public int cardCount = 0;   // 보드에 남은 카드 수
 
@@ -142,7 +142,7 @@ public class GameManager : MonoBehaviour
                 flapcntTxt.text = flapCnt.ToString();
                 //폰트그대로 wid 550 색깔 초록
                 endTxt.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 550f);
-                endTxt.GetComponent<Text>().text = "클리어";
+                endTxt.GetComponent<Text>().text = "클리어!";
                 endTxt.GetComponent<Text>().color = textColor;
 
                 // endTxt.GetComponent<Text>().fontSize = 100; 폰트사이즈 바꾸는 방법
@@ -155,11 +155,11 @@ public class GameManager : MonoBehaviour
         // 불일치할 경우(실패)
         else
         {
-            audioSource.PlayOneShot(notMatched);// 땡소리 출력
             ShowName(false); // "실패" 문구 출력
 
             if (firstCard.flipped == true || secondCard.flipped == true) // 뒤집힌 카드 확인
             {
+                audioSource.PlayOneShot(notMatched);// 땡소리 출력
                 time -= 1f; // 실패시 시간추가 카운트다운 일시 마이너스로 바꿔주면됨
                 ShowName(false); // "실패" 문구 출력
                 score -= minusScore; // 실패시 점수 마이너스 1점하기
@@ -170,7 +170,6 @@ public class GameManager : MonoBehaviour
                 Instantiate(reductionTime, timeTxt.gameObject.transform); // 1초 감소 프리팹 생성, 부모 위치 기준으로
             }
 
-            audioSource.PlayOneShot(notMatched); //틀렸을때 땡 소리 출력
 
             CountTry(); // 시도횟수 1 증가
             firstCard.CloseCard();
