@@ -52,6 +52,8 @@ public class GameManager : MonoBehaviour
     public int minusScore = 1; // 마이너스 점수
     public Color textColor = Color.green;
 
+    public bool isFinish = false; // 게임 종료 불리언
+
     private void Awake()
     {
         if (Instance == null)
@@ -151,7 +153,7 @@ public class GameManager : MonoBehaviour
 
             cardCount -= 2;
             // 마지막 카드일 경우 게임 종료
-            if (cardCount == 18)
+            if (cardCount == 14)
             {           
                 // 남은카드 0장(승리)시 오디오 출력
                 GetComponent<AudioSource>().volume = audioSource.volume * 0.3f;
@@ -167,6 +169,7 @@ public class GameManager : MonoBehaviour
                 endTxt.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 550f);
                 endTxt.GetComponent<Text>().text = "클리어!";
                 endTxt.GetComponent<Text>().color = textColor;
+                levelUp();
 
                 // endTxt.GetComponent<Text>().fontSize = 100; 폰트사이즈 바꾸는 방법
                 // endTxt.GetComponent<Text>().color = new Color(0f, 1f, 0f); // rgb값으로 색깔 바꾸는 방법
@@ -240,6 +243,20 @@ public class GameManager : MonoBehaviour
     {
         flapCnt += 1;
         flapcntTxt.text = flapCnt.ToString();
+    }
+
+    public void levelUp()
+    {
+        level++; // 레벨 올리기
+        PlayerPrefs.SetInt("level", level); // 레벨을 PlayerPrefs에 저장
+
+        Debug.Log(level);
+    }
+    public void levelDown()
+    {
+        level = 1; // 낮추기
+        PlayerPrefs.SetInt("level", level); // 레벨을 PlayerPrefs에 저장
+        Debug.Log(level);
     }
 }
 //푸시 확인용 주석입니다
