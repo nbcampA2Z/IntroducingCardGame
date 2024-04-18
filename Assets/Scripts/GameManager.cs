@@ -180,10 +180,10 @@ public class GameManager : MonoBehaviour
         // 불일치할 경우(실패)
         else
         {
-            ShowName(false); // "실패" 문구 출력
 
             if (firstCard.flipped == true || secondCard.flipped == true) // 뒤집힌 카드 확인
             {
+                ShowName(false); // "실패" 문구 출력
                 audioSource.PlayOneShot(notMatched);// 땡소리 출력
                 time -= 1f; // 실패시 시간추가 카운트다운 일시 마이너스로 바꿔주면됨
                 if(time <= 0f) // - 시간일 경우 0초로 고정
