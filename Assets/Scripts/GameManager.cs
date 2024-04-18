@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     public Text timeTxt;    // 남은 시간 텍스트
     public Text nameTxt;    // 이름 텍스트
     public GameObject endTxt;   // 게임종료 문구
-    public GameObject winTxt;   // 승리 문구
+   
     AudioSource audioSource;
     public AudioClip clip;  // 성공 시 출력될 소리
     public AudioClip notMatched; // 실패 시 출력될 소리
@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
         if (time <= 0.0f)
         {
             //update 문이라 한번만 출력해야해서 boolen값으로 체크해줌
-            if(!isFail)
+            if (!isFail)
             {
                 //실패 브금 출력 및 볼륨 0.3배로 조절
                 audioSource.PlayOneShot(Fail);
@@ -140,10 +140,11 @@ public class GameManager : MonoBehaviour
                 audioSource.PlayOneShot(Victory);
                 Time.timeScale = 0.0f;
                 flapcntTxt.text = flapCnt.ToString();
-                winTxt.SetActive(true);
+                endTxt.GetComponent<Text>().fontSize = 100;
+                endTxt.GetComponent<Text>().text = "클리어";
+                endTxt.SetActive(true);
                 board.SetActive(false);
                 nameTxt.gameObject.SetActive(false);
-
             }
         }
         // 불일치할 경우(실패)
