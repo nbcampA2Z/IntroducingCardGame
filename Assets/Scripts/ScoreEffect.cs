@@ -28,11 +28,11 @@ public class ScoreEffect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float gmaeTime = GameManager.Instance.time;
-        if (gmaeTime <= 0)
-        {
-            Destroy(gameObject); // 게임이 끝나고 남아있는 효과 없애주기
-        }
+        //float gmaeTime = GameManager.Instance.time;
+        //if (gmaeTime <= 0)
+        //{
+        //    Destroy(gameObject); // 게임이 끝나고 남아있는 효과 없애주기
+        //}
     }
 
     void DestroyScoreEffect()

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
@@ -13,6 +14,7 @@ public class GameManager : MonoBehaviour
     public Card firstCard;  // 처음 오픈한 카드
     public Card secondCard; // 두 번째 오픈한 카드
     public Text timeTxt;    // 남은 시간 텍스트
+    public GameObject timeTitle;    // 시간 제목 오브젝트
     public Text nameTxt;    // 이름 텍스트
     public GameObject endTxt;   // 게임종료 문구
     public GameObject winTxt;   // 승리 문구
@@ -46,6 +48,8 @@ public class GameManager : MonoBehaviour
     public int plusScore = 10; // 플러스 점수
     public int minusScore = 1; // 마이너스 점수
 
+    public bool isFinish = false; // 게임 종료 불리언
+
     private void Awake()
     {
         if (Instance == null)
@@ -56,13 +60,16 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        Time.timeScale = 1.0f;
+        //Time.timeScale = 1.0f;
         audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
     {
-        time -= Time.deltaTime; // 시간 프레임 단위로 카운트 다운 하고 time변수에 넣기
+        if (isFinish == false)
+        {
+            time -= Time.deltaTime; // 시간 프레임 단위로 카운트 다운 하고 time변수에 넣기
+        }
         timeTxt.text = time.ToString("N2"); // time변수에 넣은 실수를 문자형으로 바꿔서 Text에다 넣기
         // 시간이 설정 시간 이하이면 애니메이션 동작
         // playTimeAnim 을 체크하는 이유: 업데이트문이므로 반복적으로 실행 방지
@@ -79,16 +86,22 @@ public class GameManager : MonoBehaviour
         // 0초가 되면 게임 종료
         if (time <= 0.0f)
         {
+            isFinish = true;
+            time = 0.0f; // 오차 제거
             //update 문이라 한번만 출력해야해서 boolen값으로 체크해줌
-            if(!isFail)
+            if (!isFail)
             {
                 //실패 브금 출력 및 볼륨 0.3배로 조절
                 audioSource.PlayOneShot(Fail);
                 GetComponent<AudioSource>().volume = audioSource.volume * 0.3f;
                 isFail = true;
             }
-            time = 0.0f; // 오차 제거
-            Time.timeScale = 0.0f;
+            timeAnim.SetBool("isLose", true);
+            //timeAnim.SetBool("startBomb", false); // 시간 애니메이션은 끄기=========================================
+            //Time.timeScale = 0.0f;
+            timeTxt.GetComponent<Text>().color = Color.red; // 남은 시간 빨강
+            timeTxt.transform.localScale = new Vector3(1.5f, 1.5f, 0f); // 남은 시간 사이즈 키우기
+            //Invoke("TimeStop", 1.5f); // 이펙트 애니메이션 시간 벌기
             endTxt.SetActive(true);
             board.SetActive(false);
             nameTxt.gameObject.SetActive(false);
@@ -134,11 +147,17 @@ public class GameManager : MonoBehaviour
             cardCount -= 2;
             // 마지막 카드일 경우 게임 종료
             if (cardCount == 0)
-            {           
+            {
+                isFinish = true;
                 // 남은카드 0장(승리)시 오디오 출력
                 GetComponent<AudioSource>().volume = audioSource.volume * 0.3f;
                 audioSource.PlayOneShot(Victory);
-                Time.timeScale = 0.0f;
+                //Time.timeScale = 0.0f;
+                timeAnim.SetBool("isWin", true);
+                //timeAnim.SetBool("startBomb", false); // 시간 애니메이션은 끄기=========================================
+                timeTxt.GetComponent<Text>().color = Color.green; // 남은시간 초록
+                timeTxt.transform.localScale = new Vector3(1.5f, 1.5f, 0f); // 남은시간 사이즈 키우기
+                //Invoke("TimeStop", 0.5f); // 이펙트 애니메이션 시간 벌기
                 flapcntTxt.text = flapCnt.ToString();
                 winTxt.SetActive(true);
                 board.SetActive(false);
@@ -155,13 +174,17 @@ public class GameManager : MonoBehaviour
             if (firstCard.flipped == true || secondCard.flipped == true) // 뒤집힌 카드 확인
             {
                 time -= 1f; // 실패시 시간추가 카운트다운 일시 마이너스로 바꿔주면됨
+                if(time <= 0f) // - 시간일 경우 0초로 고정
+                {
+                    time = 0.0f;
+                }
                 ShowName(false); // "실패" 문구 출력
                 score -= minusScore; // 실패시 점수 마이너스 1점하기
 
                 isPlus = false;
                 Instantiate(scoreEffect, scoreTxt.transform);
 
-                Instantiate(reductionTime, timeTxt.gameObject.transform); // 1초 감소 프리팹 생성, 부모 위치 기준으로
+                Instantiate(reductionTime, timeTitle.transform); // 1초 감소 프리팹 생성, 부모 위치 기준으로
             }
 
             audioSource.PlayOneShot(notMatched); //틀렸을때 땡 소리 출력
@@ -191,10 +214,12 @@ public class GameManager : MonoBehaviour
         if (isAnswer)
         {
             nameTxt.text = firstCard.name;
+            nameTxt.GetComponent<Text>().color = Color.green;
         }
         else
         {
             nameTxt.text = "실패";
+            nameTxt.GetComponent<Text>().color = Color.red;
         }
         nameTxt.gameObject.SetActive(true);
     }
@@ -206,6 +231,11 @@ public class GameManager : MonoBehaviour
     {
         flapCnt += 1;
         flapcntTxt.text = flapCnt.ToString();
+    }
+
+    public void TimeStop()
+    {
+        Time.timeScale = 0.0f;
     }
 }
 //푸시 확인용 주석입니다
