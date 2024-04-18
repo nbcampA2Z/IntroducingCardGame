@@ -137,7 +137,7 @@ public class GameManager : MonoBehaviour
 
             cardCount -= 2;
             // 마지막 카드일 경우 게임 종료
-            if (cardCount == 18)
+            if (cardCount == 0)
             {           
                 // 남은카드 0장(승리)시 오디오 출력
                 GetComponent<AudioSource>().volume = audioSource.volume * 0.3f;
