@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public GameObject timeTitle;    // 시간 제목 오브젝트
     public Text nameTxt;    // 이름 텍스트
     public GameObject endTxt;   // 게임종료 문구
-    public Text nowLevlelTxt;
+    public Text nowLevlelTxt; //레벨 텍스트
 
     AudioSource audioSource;
     public AudioClip clip;  // 성공 시 출력될 소리
@@ -60,14 +60,14 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
         }
-        level = PlayerPrefs.GetInt("level");
+        level = PlayerPrefs.GetInt("level"); //게임 시작전 저장해놓은 점수 가져오기
     }
 
     void Start()
     {
         //Time.timeScale = 1.0f;
         audioSource = GetComponent<AudioSource>();
-        nowLevlelTxt.text = level.ToString();
+        nowLevlelTxt.text = level.ToString(); // 게임 시작하는 동시에 가져온 점수 표기하기
     }
 
     void Update()
@@ -254,7 +254,7 @@ public class GameManager : MonoBehaviour
     }
     public void levelDown()
     {
-        level = 1; // 낮추기
+        level = 1; // 레벨 낮추기
         PlayerPrefs.SetInt("level", level); // 레벨을 PlayerPrefs에 저장
         Debug.Log(level);
     }
