@@ -144,6 +144,9 @@ public class GameManager : MonoBehaviour
                 endTxt.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 550f);
                 endTxt.GetComponent<Text>().text = "클리어";
                 endTxt.GetComponent<Text>().color = textColor;
+
+                // endTxt.GetComponent<Text>().fontSize = 100; 폰트사이즈 바꾸는 방법
+                // endTxt.GetComponent<Text>().color = new Color(0f, 1f, 0f); // rgb값으로 색깔 바꾸는 방법
                 endTxt.SetActive(true);
                 board.SetActive(false);
                 nameTxt.gameObject.SetActive(false);
