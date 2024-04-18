@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
     public bool isPlus = false; // 플러스 or 마이너스
     public int plusScore = 10; // 플러스 점수
     public int minusScore = 1; // 마이너스 점수
-
+    public Color textColor = Color.green;
     private void Awake()
     {
         if (Instance == null)
@@ -133,15 +133,17 @@ public class GameManager : MonoBehaviour
 
             cardCount -= 2;
             // 마지막 카드일 경우 게임 종료
-            if (cardCount == 0)
+            if (cardCount == 18)
             {           
                 // 남은카드 0장(승리)시 오디오 출력
                 GetComponent<AudioSource>().volume = audioSource.volume * 0.3f;
                 audioSource.PlayOneShot(Victory);
                 Time.timeScale = 0.0f;
                 flapcntTxt.text = flapCnt.ToString();
-                endTxt.GetComponent<Text>().fontSize = 100;
+                //폰트그대로 wid 550 색깔 초록
+                endTxt.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 550f);
                 endTxt.GetComponent<Text>().text = "클리어";
+                endTxt.GetComponent<Text>().color = textColor;
                 endTxt.SetActive(true);
                 board.SetActive(false);
                 nameTxt.gameObject.SetActive(false);
